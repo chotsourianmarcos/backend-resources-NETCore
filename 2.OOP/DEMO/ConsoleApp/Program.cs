@@ -38,7 +38,7 @@ while(option != 0)
         {
             if(a is Dog)
             {
-                totalDogWeekFood += a.FoodPerDayKG;
+                totalDogWeekFood += a.CalculateWeekFood();
             }
         }
         Console.WriteLine("El total de comida perruna necesario por semana es " + totalDogWeekFood + "\n");
@@ -50,7 +50,7 @@ while(option != 0)
         {
             if(a is Cat)
             {
-                totalCatWeekFood += a.FoodPerDayKG;
+                totalCatWeekFood += a.CalculateWeekFood();
             }
             
         }

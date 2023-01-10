@@ -27,7 +27,7 @@ namespace ConsoleApp.Services
         {
             Console.WriteLine("Escriba el nombre de su Perro.");
             var newDog = new Dog(Console.ReadLine());
-            Console.WriteLine("Escriba cuántos kilos de comida por semana necesita su Perro.");
+            Console.WriteLine("Escriba cuántos kilos de comida por día necesita su Perro.");
             newDog.FoodPerDayKG = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Escriba su email.");
             newDog.OwnerEmail = Console.ReadLine();
@@ -38,7 +38,7 @@ namespace ConsoleApp.Services
         {
             Console.WriteLine("Escriba el nombre de su Gato.");
             var newCat = new Cat(Console.ReadLine());
-            Console.WriteLine("Escriba cuántos kilos de comida por semana necesita su Gato.");
+            Console.WriteLine("Escriba cuántos kilos de comida por día necesita su Gato.");
             newCat.FoodPerDayKG = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Escriba su email.");
             newCat.OwnerEmail = Console.ReadLine();
