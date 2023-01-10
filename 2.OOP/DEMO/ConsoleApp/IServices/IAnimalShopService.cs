@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp.IServices
 {
-    public interface IAnimalService
+    public interface IAnimalShopService
     {
         void ShowAnimalMenu();
         Dog CreateDog();

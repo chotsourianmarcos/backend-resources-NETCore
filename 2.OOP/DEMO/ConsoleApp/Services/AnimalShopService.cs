@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp.Services
 {
-    public class AnimalService : IAnimalService
+    public class AnimalShopService : IAnimalShopService
     {
         public void ShowAnimalMenu()
         {
@@ -20,6 +20,8 @@ namespace ConsoleApp.Services
             Console.WriteLine("5. Calcular total de comida semanal gatuna.");
             Console.WriteLine("6. Mostrar productos disponibles para cada animal.");
             Console.WriteLine("0. Salir.");
+            Console.WriteLine("");
+
         }
         public Dog CreateDog()
         {

@@ -4,7 +4,7 @@ using Entities.Entities;
 
 var animalList = new List<Animal>();
 
-IAnimalService animalService = new AnimalService();
+IAnimalShopService animalService = new AnimalShopService();
 
 animalService.ShowAnimalMenu();
 
@@ -64,6 +64,7 @@ while(option != 0)
         Console.WriteLine("");
     }
 
+    animalService.ShowAnimalMenu();
     option = Convert.ToInt32(Console.ReadLine());
 }
 Console.WriteLine("Adiós, muchas gracias!" + "\n");
