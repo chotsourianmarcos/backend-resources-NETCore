@@ -47,5 +47,9 @@ namespace ConsoleApp.Services
             Console.WriteLine("3. Calcular promedio edades Usuarios");
             Console.WriteLine("0. Salir");
         }
+
+        //public void DeleteUser(User user) { 
+        
+        //}
     }
 }

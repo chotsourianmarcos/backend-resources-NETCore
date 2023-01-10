@@ -12,5 +12,6 @@ namespace ConsoleApp.IServices
         void ShowUserMenu();
         User CreateUser();
         decimal CalculateUsersAverageAge(List<User> userList);
+        //void DeleteUser(User user);
     }
 }

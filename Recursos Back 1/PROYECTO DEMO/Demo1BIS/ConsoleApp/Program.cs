@@ -1,11 +1,15 @@
-﻿// See https://aka.ms/new-console-template for more information
-using ConsoleApp.IServices;
+﻿using ConsoleApp.IServices;
 using ConsoleApp.Services;
 using Entities.Entities;
 
 List<User> userList = new List<User>();
 
 IUserService userService = new UserService();
+
+//var ejemploDeUsuario = new User();
+//var ejemploSegundoUsuario = new User();
+
+//var interfazInstanciada = new IUserService();
 
 userService.ShowUserMenu();
 
