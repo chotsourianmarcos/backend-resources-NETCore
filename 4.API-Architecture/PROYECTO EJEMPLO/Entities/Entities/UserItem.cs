@@ -22,5 +22,6 @@ namespace Entities.Entities
         public int IdRol { get; set; }
         private string Password { get; set; }
         private string EncryptedPassword { get; set; }
+        public string ExampleGitSasasa { get; set; }
     }
 }
