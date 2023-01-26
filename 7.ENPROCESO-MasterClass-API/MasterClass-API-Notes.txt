@@ -1,0 +1,30 @@
+1-Estructura Negocio/Tablas
+*mostrar el diseño gráfico
+2-API Full
+3-PPT divertido/visual/memes
+4-OPP divertido/visual/memes (uniforme versus persona)
+5-extras:
+*Dos FK
+*Precio Total
+*Request y Filter objects
+*Excepciones
+*Dojo C# (que incorpore OOP)
+*que los extras estén separados (todos juntos al final)
+*vincular con un front
+*dos métodos de un mismo tipo en el mismo controller
+*GET con parámetros
+
+Ejemplo RRHHAdmin:
+
+Persona
+Usuario
+Empleado
+Roles
+
+Cargo
+Área
+Contrato
+
+!Obvio, no es la mejor manera de hacer las cosas, es un proyecto con fines pedagógicos para el momento donde están.
+!Luego en nuestro día semanal de back veremos otros musts y extras etcs.
+!Concentrarse en saber pensarlo y entenderlo.
