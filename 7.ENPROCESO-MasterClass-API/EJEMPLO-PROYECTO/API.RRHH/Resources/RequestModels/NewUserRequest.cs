@@ -8,6 +8,5 @@ namespace Resources.RequestModels
 {
     public class NewUserRequest
     {
-        public UserCredentials Credentials { get; set; }
     }
 }

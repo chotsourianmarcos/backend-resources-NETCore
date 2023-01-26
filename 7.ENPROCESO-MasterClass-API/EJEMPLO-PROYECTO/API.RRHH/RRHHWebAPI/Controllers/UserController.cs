@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Entities.Entities;
+using Microsoft.AspNetCore.Mvc;
+using Resources.FilterModels;
 using Resources.RequestModels;
 using RRHHWebAPI.IServices;
 using System.Security.Authentication;
@@ -7,7 +9,7 @@ using System.Xml.Linq;
 namespace RRHHWebAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     public class UserController : ControllerBase
     {
         private ISecurityService _securityService;
@@ -19,9 +21,9 @@ namespace RRHHWebAPI.Controllers
         }
 
         [HttpPost(Name = "InsertUser")]
-        public int Post([FromBody] NewUserRequest newUserRequest)
+        public int Post([FromHeader] UserCredentials userCredentials, [FromBody] NewUserRequest newUserRequest)
         {
-            var validCredentials = _securityService.ValidateUserCredentials(newUserRequest.Credentials.UserName, newUserRequest.Credentials.UserPassword, 1);
+            var validCredentials = _securityService.ValidateUserCredentials(userCredentials.UserName, userCredentials.UserPassword, 1);
             if(validCredentials == true)
             {
                 return _userService.InsertUser(newUserRequest);
@@ -32,32 +34,60 @@ namespace RRHHWebAPI.Controllers
             }
         }
 
-        //[HttpGet(Name = "GetAllProducts")]
-        //public int Get([FromBody] ProductItem productItem)
-        //{
-        //    //     _userService.ValidateCredentials(userItem);
-        //    return _productService.InsertProduct(productItem);
-        //}
+        [HttpGet(Name = "GetAllUsers")]
+        public List<UserItem> GetAll([FromHeader] UserCredentials userCredentials)
+        {
+            var validCredentials = _securityService.ValidateUserCredentials(userCredentials.UserName, userCredentials.UserPassword, 1);
+            if (validCredentials == true)
+            {
+                return _userService.GetAllUsers();
+            }
+            else
+            {
+                throw new InvalidCredentialException();
+            }
+        }
 
-        //[HttpPatch(Name = "ModifyProduct")]
-        //public int Patch([FromBody] ProductItem productItem)
-        //{
-        //    //     _userService.ValidateCredentials(userItem);
-        //    return _productService.InsertProduct(productItem);
-        //}
+        [HttpPatch(Name = "ModifyUser")]
+        public void Patch([FromHeader] UserCredentials userCredentials, [FromBody] UserItem userItem)
+        {
+            var validCredentials = _securityService.ValidateUserCredentials(userCredentials.UserName, userCredentials.UserPassword, 1);
+            if (validCredentials == true)
+            {
+                _userService.UpdateUser(userItem);
+            }
+            else
+            {
+                throw new InvalidCredentialException();
+            }
+        }
 
-        //[HttpGet(Name = "DeleteProduct")]
-        //public int Delete([FromBody] ProductItem productItem)
-        //{
-        //    //     _userService.ValidateCredentials(userItem);
-        //    return _productService.InsertProduct(productItem);
-        //}
+        [HttpGet(Name = "DeleteUser")]
+        public void Delete([FromHeader] UserCredentials userCredentials, [FromQuery] int id)
+        {
+            var validCredentials = _securityService.ValidateUserCredentials(userCredentials.UserName, userCredentials.UserPassword, 1);
+            if (validCredentials == true)
+            {
+                _userService.DeleteUser(id);
+            }
+            else
+            {
+                throw new InvalidCredentialException();
+            }
+        }
 
-        //[HttpGet(Name = "GetAllProducts")]
-        //public List<ProductItem> GetAll()
-        //{
-        //    //     _userService.ValidateCredentials(userItem);
-        //    return _productService.GetAllProducts();
-        //}
+        [HttpGet(Name = "GetUsersByCriteria")]
+        public List<UserItem> GetByCriteria([FromHeader] UserCredentials userCredentials, [FromQuery] UserFilter userFilter)
+        {
+            var validCredentials = _securityService.ValidateUserCredentials(userCredentials.UserName, userCredentials.UserPassword, 1);
+            if (validCredentials == true)
+            {
+                return _userService.GetUsersByCriteria(userFilter);
+            }
+            else
+            {
+                throw new InvalidCredentialException();
+            }
+        }
     }
 }
