@@ -4,7 +4,6 @@ using Resources.FilterModels;
 using Resources.RequestModels;
 using RRHHWebAPI.IServices;
 using System.Security.Authentication;
-using System.Xml.Linq;
 
 namespace RRHHWebAPI.Controllers
 {
@@ -21,9 +20,9 @@ namespace RRHHWebAPI.Controllers
         }
 
         [HttpPost(Name = "InsertUser")]
-        public int Post([FromHeader] UserCredentials userCredentials, [FromBody] NewUserRequest newUserRequest)
+        public int Post([FromHeader] string userName, [FromHeader] string userPassword, [FromBody] NewUserRequest newUserRequest)
         {
-            var validCredentials = _securityService.ValidateUserCredentials(userCredentials.UserName, userCredentials.UserPassword, 1);
+            var validCredentials = _securityService.ValidateUserCredentials(userName, userPassword, 1);
             if(validCredentials == true)
             {
                 return _userService.InsertUser(newUserRequest);
@@ -35,9 +34,9 @@ namespace RRHHWebAPI.Controllers
         }
 
         [HttpGet(Name = "GetAllUsers")]
-        public List<UserItem> GetAll([FromHeader] UserCredentials userCredentials)
+        public List<UserItem> GetAll([FromHeader] string userName, [FromHeader] string userPassword)
         {
-            var validCredentials = _securityService.ValidateUserCredentials(userCredentials.UserName, userCredentials.UserPassword, 1);
+            var validCredentials = _securityService.ValidateUserCredentials(userName, userPassword, 1);
             if (validCredentials == true)
             {
                 return _userService.GetAllUsers();
@@ -49,9 +48,9 @@ namespace RRHHWebAPI.Controllers
         }
 
         [HttpPatch(Name = "ModifyUser")]
-        public void Patch([FromHeader] UserCredentials userCredentials, [FromBody] UserItem userItem)
+        public void Patch([FromHeader] string userName, [FromHeader] string userPassword, [FromBody] UserItem userItem)
         {
-            var validCredentials = _securityService.ValidateUserCredentials(userCredentials.UserName, userCredentials.UserPassword, 1);
+            var validCredentials = _securityService.ValidateUserCredentials(userName, userPassword, 1);
             if (validCredentials == true)
             {
                 _userService.UpdateUser(userItem);
@@ -63,9 +62,9 @@ namespace RRHHWebAPI.Controllers
         }
 
         [HttpGet(Name = "DeleteUser")]
-        public void Delete([FromHeader] UserCredentials userCredentials, [FromQuery] int id)
+        public void Delete([FromHeader] string userName, [FromHeader] string userPassword, [FromQuery] int id)
         {
-            var validCredentials = _securityService.ValidateUserCredentials(userCredentials.UserName, userCredentials.UserPassword, 1);
+            var validCredentials = _securityService.ValidateUserCredentials(userName, userPassword, 1);
             if (validCredentials == true)
             {
                 _userService.DeleteUser(id);
@@ -77,9 +76,9 @@ namespace RRHHWebAPI.Controllers
         }
 
         [HttpGet(Name = "GetUsersByCriteria")]
-        public List<UserItem> GetByCriteria([FromHeader] UserCredentials userCredentials, [FromQuery] UserFilter userFilter)
+        public List<UserItem> GetByCriteria([FromHeader] string userName, [FromHeader] string userPassword, [FromQuery] UserFilter userFilter)
         {
-            var validCredentials = _securityService.ValidateUserCredentials(userCredentials.UserName, userCredentials.UserPassword, 1);
+            var validCredentials = _securityService.ValidateUserCredentials(userName, userPassword, 1);
             if (validCredentials == true)
             {
                 return _userService.GetUsersByCriteria(userFilter);

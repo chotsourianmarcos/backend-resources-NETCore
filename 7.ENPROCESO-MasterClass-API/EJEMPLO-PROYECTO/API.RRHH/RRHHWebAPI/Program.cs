@@ -15,12 +15,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ISecurityService, SecurityService>();
+builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IContractService, ContractService>();
 builder.Services.AddScoped<ILaborService, LaborService>();
 
 builder.Services.AddScoped<ISecurityLogic, SecurityLogic>();
+builder.Services.AddScoped<IPersonLogic, PersonLogic>();
 builder.Services.AddScoped<IUserLogic, UserLogic>();
 builder.Services.AddScoped<IEmployeeLogic, EmployeeLogic>();
 builder.Services.AddScoped<IContractLogic, ContractLogic>();

@@ -1,4 +1,5 @@
 ﻿using Entities.Entities;
+using Logic.ILogic;
 using Resources.FilterModels;
 using Resources.RequestModels;
 using RRHHWebAPI.IServices;
@@ -7,29 +8,35 @@ namespace RRHHWebAPI.Services
 {
     public class UserService : IUserService
     {
+        private readonly IUserLogic _userLogic;
+        public UserService(IUserLogic userLogic)
+        {
+            _userLogic = userLogic;
+        }
         public void DeleteUser(int id)
         {
-            throw new NotImplementedException();
+            _userLogic.DeleteUser(id);
         }
 
         public List<UserItem> GetAllUsers()
         {
-            throw new NotImplementedException();
+            return _userLogic.GetAllUsers();
         }
 
         public List<UserItem> GetUsersByCriteria(UserFilter userFilter)
         {
-            throw new NotImplementedException();
+            return _userLogic.GetUsersByCriteria(userFilter);
         }
 
-        public int InsertUser(NewUserRequest newProductRequest)
+        public int InsertUser(NewUserRequest newUserRequest)
         {
-            throw new NotImplementedException();
+            var newUserItem = newUserRequest.ToUserItem();
+            return _userLogic.InsertUser(newUserItem);
         }
-
+        
         public void UpdateUser(UserItem userItem)
         {
-            throw new NotImplementedException();
+            _userLogic.UpdateUser(userItem);
         }
     }
 }
