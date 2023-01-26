@@ -54,6 +54,11 @@ namespace Logic.Logic
 
         public int InsertUser(UserItem userItem)
         {
+            if (userItem.IdRol == 1)
+            {
+                throw new InvalidOperationException();
+            };
+
             _serviceContext.Users.Add(userItem);
             _serviceContext.SaveChanges();
             return userItem.Id;
