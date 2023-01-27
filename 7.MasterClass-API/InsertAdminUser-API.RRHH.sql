@@ -17,6 +17,6 @@ SELECT * FROM UserRols
 INSERT INTO Users
 (IdPerson, IdRol, [Name], [Password], InsertDate, UpdateDate, IsActive)
 VALUES
-(3, 1, 'marcoschotsourian', 'contrasenia123', GETDATE(), GETDATE(), 1)
+(1, 1, 'marcoschotsourian', 'contrasenia123', GETDATE(), GETDATE(), 1)
 
 SELECT * FROM Users

@@ -19,6 +19,12 @@ namespace RRHHWebAPI.Controllers
             _userService = userService;
         }
 
+        //IdRoles
+        //1: Admin
+        //2: Empleado
+        //3: Soporte
+        //4: Etcs
+
         [HttpPost(Name = "InsertUser")]
         public int Post([FromHeader] string userName, [FromHeader] string userPassword, [FromBody] NewUserRequest newUserRequest)
         {
@@ -61,7 +67,7 @@ namespace RRHHWebAPI.Controllers
             }
         }
 
-        [HttpGet(Name = "DeleteUser")]
+        [HttpDelete(Name = "DeleteUser")]
         public void Delete([FromHeader] string userName, [FromHeader] string userPassword, [FromQuery] int id)
         {
             var validCredentials = _securityService.ValidateUserCredentials(userName, userPassword, 1);

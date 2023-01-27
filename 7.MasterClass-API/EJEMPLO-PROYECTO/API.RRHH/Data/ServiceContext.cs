@@ -39,9 +39,15 @@ namespace Data
             builder.Entity<EmployeeItem>(employee =>
             {
                 employee.ToTable("Employees");
+
+                //esto me obliga a poner a la clase empleado como atributo de la clase Persona
+                //por eso no lo hago así
+                //employee.HasOne<PersonItem>().WithOne().HasForeignKey(e => e.IdPerson);
                 employee.HasOne<PersonItem>().WithMany().HasForeignKey(e => e.IdPerson);
                 employee.HasIndex(c => c.IdPerson).IsUnique();
+
                 employee.HasOne<JobItem>().WithMany().HasForeignKey(e => e.IdJob);
+
                 employee.HasOne<ContractItem>().WithMany().HasForeignKey(e => e.IdContract);
             });
 
