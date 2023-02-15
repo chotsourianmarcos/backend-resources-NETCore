@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic", "Logic\Logic.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{1A23C446-E2DE-49A1-8FD5-B0B6960A7D90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{DBD741B1-B49A-4D52-BC3C-BFDB1C2786E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{DBD741B1-B49A-4D52-BC3C-BFDB1C2786E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resources", "Resources\Resources.csproj", "{4E97A3F0-5C0C-47F8-9F15-8A1473FE6AC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{DBD741B1-B49A-4D52-BC3C-BFDB1C2786E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBD741B1-B49A-4D52-BC3C-BFDB1C2786E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBD741B1-B49A-4D52-BC3C-BFDB1C2786E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E97A3F0-5C0C-47F8-9F15-8A1473FE6AC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E97A3F0-5C0C-47F8-9F15-8A1473FE6AC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E97A3F0-5C0C-47F8-9F15-8A1473FE6AC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E97A3F0-5C0C-47F8-9F15-8A1473FE6AC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

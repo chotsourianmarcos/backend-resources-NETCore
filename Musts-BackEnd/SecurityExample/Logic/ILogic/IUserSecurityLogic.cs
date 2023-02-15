@@ -8,9 +8,9 @@ namespace Logic.ILogic
 {
     public interface IUserSecurityLogic
     {
-        bool ValidateUserPassword(string userName, string userPasswordEncrypted);
-        void RefreshUserToken(string userName);
-        string ReturnUserToken(string userName, string userPasswordEncrypted);
+        string GenerateAuthorizationToken(string userName, string userPasswordEncrypted);
+        //void RefreshUserToken(string userName, string newEncryptedToken);
+        //string ReturnUserToken(string userName, string userPasswordEncrypted);
         bool ValidateUserToken(string userName, string token);
     }
 }

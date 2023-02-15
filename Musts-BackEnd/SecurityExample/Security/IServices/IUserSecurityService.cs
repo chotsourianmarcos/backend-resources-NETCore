@@ -8,8 +8,8 @@ namespace Security.IServices
 {
     public interface IUserSecurityService
     {
-        bool ValidateUserCredentials(string userName, string userPasswordEncrypted);
-        string ReturnUserToken(string userName, string userPasswordEncrypted);
+        string GenerateAuthorizationToken(string userName, string userPassword);
+        //string ReturnUserToken(string userName, string userPasswordEncrypted);
         bool ValidateUserToken(string userName, string token);
     }
 }
