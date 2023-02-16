@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Resources.RequestModels
 {
-    public class NewUserRequestModel
+    public class NewUserRequest
     {
         public int IdPerson { get; set; }
         public int IdRol { get; set; }

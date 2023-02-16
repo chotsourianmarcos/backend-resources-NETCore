@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +14,7 @@ namespace Entities.Entities
         public int Id { get; set; }
         public int IdPerson { get; set; }
         public int IdRol { get; set; }
+        //public virtual UserRol UserRol { get; set; } adicional!
         public string UserName { get; set; }
         public DateTime InsertDate { get; set; }
         public DateTime UpdateDate { get; set; }

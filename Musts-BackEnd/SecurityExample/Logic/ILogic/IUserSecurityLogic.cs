@@ -11,6 +11,6 @@ namespace Logic.ILogic
         string GenerateAuthorizationToken(string userName, string userPasswordEncrypted);
         //void RefreshUserToken(string userName, string newEncryptedToken);
         //string ReturnUserToken(string userName, string userPasswordEncrypted);
-        bool ValidateUserToken(string userName, string token);
+        bool ValidateUserToken(string userName, string token, string controller, string action, string method);
     }
 }

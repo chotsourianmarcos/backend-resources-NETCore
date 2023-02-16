@@ -1,6 +1,7 @@
 ﻿using Logic.ILogic;
 using Security.IServices;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -20,16 +21,12 @@ namespace Security.Services
         {
             return _userSecurityLogic.GenerateAuthorizationToken(userName, userPassword);
         }
-        //private string RefreshUserToken(string userName)
-        //{
-        //    string secureRandomString = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
-        //    string newEncryptedToken = this.EncryptString(secureRandomString);
-        //    _userSecurityLogic.RefreshUserToken(userName, newEncryptedToken);
-        //    return secureRandomString;
-        //}
-        public bool ValidateUserToken(string userName, string token)
+        public bool ValidateUserToken(string authorization, string controller, string action, string method)
         {
-            return _userSecurityLogic.ValidateUserToken(userName, token);
+            var indexToSplit = authorization.IndexOf(':');
+            var userName = authorization.Substring(0, indexToSplit);
+            var token = authorization.Substring(indexToSplit +1, authorization.Length - userName.Length -1);
+            return _userSecurityLogic.ValidateUserToken(userName, token, controller, action, method);
         }
     }
 }

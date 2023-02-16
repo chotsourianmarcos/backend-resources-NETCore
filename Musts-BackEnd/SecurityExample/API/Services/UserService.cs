@@ -1,17 +1,19 @@
-﻿using Entities.Entities;
+﻿using API.IServices;
+using Entities.Entities;
 using Logic.ILogic;
 using Resources.FilterModels;
 using Resources.RequestModels;
 
 namespace API.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly IUserLogic _userLogic;
         public UserService(IUserLogic userLogic)
         {
             _userLogic = userLogic;
         }
+
         public void DeleteUser(int id)
         {
             _userLogic.DeleteUser(id);
@@ -27,7 +29,7 @@ namespace API.Services
             return _userLogic.GetUsersByCriteria(userFilter);
         }
 
-        public int InsertUser(NewUserRequestModel newUserRequest)
+        public int InsertUser(NewUserRequest newUserRequest)
         {
             var newUserItem = newUserRequest.ToUserItem();
             return _userLogic.InsertUser(newUserItem);
@@ -36,6 +38,11 @@ namespace API.Services
         public void UpdateUser(UserItem userItem)
         {
             _userLogic.UpdateUser(userItem);
+        }
+
+        public int InsertUserAuthorization(NewUserAuthRequest newUserAuthRequest)
+        {
+            throw new NotImplementedException();
         }
     }
 }

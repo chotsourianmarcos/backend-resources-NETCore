@@ -21,14 +21,14 @@ namespace API.Controllers
             _userService = userService;
         }
         [HttpPost(Name = "LoginUser")]
-        public string Login([FromBody] LoginRequestModel loginRequest)
+        public string Login([FromBody] LoginRequest loginRequest)
         {
 
             return _userSecurityService.GenerateAuthorizationToken(loginRequest.UserName, loginRequest.UserPassword);
         }
 
         [HttpPost(Name = "InsertUser")]
-        public int InsertUser([FromBody] NewUserRequestModel newUserRequest)
+        public int InsertUser([FromBody] NewUserRequest newUserRequest)
         {
             return _userService.InsertUser(newUserRequest);
         }
@@ -55,6 +55,12 @@ namespace API.Controllers
         public List<UserItem> GetByCriteria([FromQuery] UserFilter userFilter)
         {
             return _userService.GetUsersByCriteria(userFilter);
+        }
+
+        [HttpGet(Name = "InsertUserAuthorization")]
+        public int InsertUserAuthorization([FromBody] NewUserAuthRequest newUserAuthRequest)
+        {
+            return _userService.InsertUserAuthorization(newUserAuthRequest);
         }
     }
 }

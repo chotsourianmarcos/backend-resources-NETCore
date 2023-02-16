@@ -20,27 +20,6 @@ namespace Logic.Logic
         {
             _serviceContext = serviceContext;
         }
-        //private void RefreshUserToken(string userName, string newEncryptedToken)
-        //{
-        //    var user = _serviceContext.Set<UserItem>()
-        //        .Where(u => u.UserName == userName).First();
-        //    user.EncryptedToken = newEncryptedToken;
-        //    _serviceContext.SaveChanges();
-        //}
-
-        //public string ReturnUserToken(string userName, string userPasswordEncrypted)
-        //{
-        //    if (this.ValidateUserPassword(userName, userPasswordEncrypted))
-        //    {
-        //        var user = _serviceContext.Set<UserItem>()
-        //            .Where(u => u.UserName == userName).First();
-        //        return user.Token;
-        //    }
-        //    else
-        //    {
-        //        throw new InvalidCredentialException();
-        //    }
-        //}
 
         public string GenerateAuthorizationToken(string userName, string userPassword)
         {
@@ -75,13 +54,26 @@ namespace Logic.Logic
             }
         }
 
-        public bool ValidateUserToken(string userName, string token)
+        public bool ValidateUserToken(string userName, string token, string controller, string action, string method)
         {
             var user = _serviceContext.Set<UserItem>()
                      .Where(u => u.UserName == userName).FirstOrDefault();
 
             if (user != null)
             {
+                var userAuthorization = _serviceContext.Set<UserAuthorizationItem>()
+                     .Where(a => a.IdUserRol == user.IdRol
+                            && a.ControllerName == controller
+                            && a.ActionName == action
+                            && a.HTTPMethodType == method
+                            && a.IsActive == true)
+                     .FirstOrDefault();
+
+                if(userAuthorization == null) 
+                {
+                    throw new UnauthorizedAccessException("El usuario no está autorizado para la acción.");
+                }
+                
                 if (user.IsActive)
                 {
                     if(user.EncryptedToken == EncryptString(token))

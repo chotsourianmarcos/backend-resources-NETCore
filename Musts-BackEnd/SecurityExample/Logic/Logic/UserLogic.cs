@@ -1,5 +1,6 @@
 ﻿using Data;
 using Entities.Entities;
+using Logic.ILogic;
 using Resources.FilterModels;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Logic.Logic
 {
-    public class UserLogic
+    public class UserLogic : IUserLogic
     {
         private readonly ServiceContext _serviceContext;
         public UserLogic(ServiceContext serviceContext)

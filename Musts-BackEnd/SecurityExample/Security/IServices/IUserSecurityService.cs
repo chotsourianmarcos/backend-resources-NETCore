@@ -9,7 +9,6 @@ namespace Security.IServices
     public interface IUserSecurityService
     {
         string GenerateAuthorizationToken(string userName, string userPassword);
-        //string ReturnUserToken(string userName, string userPasswordEncrypted);
-        bool ValidateUserToken(string userName, string token);
+        bool ValidateUserToken(string authorization, string controller, string action, string method);
     }
 }
