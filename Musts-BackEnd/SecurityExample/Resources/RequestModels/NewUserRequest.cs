@@ -18,7 +18,6 @@ namespace Resources.RequestModels
         {
             var userItem = new UserItem();
 
-            userItem.IdPerson = IdPerson;
             userItem.IdRol = IdRol;
             userItem.UserName = UserName;
             userItem.EncryptedPassword = EncryptedPassword;

@@ -57,10 +57,13 @@ namespace API.Controllers
             return _userService.GetUsersByCriteria(userFilter);
         }
 
-        [HttpGet(Name = "InsertUserAuthorization")]
+        [HttpPost(Name = "InsertUserAuthorization")]
         public int InsertUserAuthorization([FromBody] NewUserAuthRequest newUserAuthRequest)
         {
             return _userService.InsertUserAuthorization(newUserAuthRequest);
         }
+        //GetUserAuthorization
+        //DeleteUserAuthorization
+        //PatchUserAuthorization
     }
 }

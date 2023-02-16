@@ -12,7 +12,6 @@ namespace Entities.Entities
     {
         public UserItem() { }
         public int Id { get; set; }
-        public int IdPerson { get; set; }
         public int IdRol { get; set; }
         //public virtual UserRol UserRol { get; set; } adicional!
         public string UserName { get; set; }

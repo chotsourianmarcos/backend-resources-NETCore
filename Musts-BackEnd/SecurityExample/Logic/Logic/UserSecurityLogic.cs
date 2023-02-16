@@ -1,15 +1,13 @@
 ﻿using BCrypt.Net;
 using Data;
 using Entities.Entities;
+using Entities.Tables;
 using Logic.ILogic;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Security.Authentication;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic.Logic
 {
@@ -26,32 +24,28 @@ namespace Logic.Logic
             var user = _serviceContext.Set<UserItem>()
                      .Where(u => u.UserName == userName).SingleOrDefault();
 
-            if (user != null)
-            {
-                if(user.IsActive)
-                {
-                    if (user.EncryptedPassword == EncryptString(userPassword))
-                    {
-                        var secureRandomString = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
-                        user.EncryptedToken = EncryptString(secureRandomString);
-                        user.TokenExpireDate = DateTime.Now.AddMinutes(10);
-                        _serviceContext.SaveChanges();
-                        return secureRandomString;
-                    }
-                    else
-                    {
-                        throw new UnauthorizedAccessException("La contraseña es incorrecta.");
-                    }
-                }
-                else
-                {
-                    throw new InvalidOperationException("El usuario no está activo.");
-                }
-            }
-            else
+            if (user == null)
             {
                 throw new InvalidCredentialException("El usuario no existe o bien está replicado.");
             }
+
+            if (user.IsActive == false)
+            {
+                throw new InvalidOperationException("El usuario no está activo.");
+            }
+
+            if (VerifyHashedKey(userPassword, user.EncryptedPassword))
+            {
+                throw new UnauthorizedAccessException("La contraseña es incorrecta.");
+            }
+
+            var secureRandomString = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
+            user.EncryptedToken = HashString(secureRandomString);
+            user.TokenExpireDate = DateTime.Now.AddMinutes(10);
+
+            _serviceContext.SaveChanges();
+
+            return secureRandomString;
         }
 
         public bool ValidateUserToken(string userName, string token, string controller, string action, string method)
@@ -59,53 +53,59 @@ namespace Logic.Logic
             var user = _serviceContext.Set<UserItem>()
                      .Where(u => u.UserName == userName).FirstOrDefault();
 
-            if (user != null)
+            if (user == null)
             {
-                var userAuthorization = _serviceContext.Set<UserAuthorizationItem>()
-                     .Where(a => a.IdUserRol == user.IdRol
-                            && a.ControllerName == controller
-                            && a.ActionName == action
-                            && a.HTTPMethodType == method
-                            && a.IsActive == true)
-                     .FirstOrDefault();
+                throw new InvalidCredentialException("El usuario no existe.");
+            }
 
-                if(userAuthorization == null) 
-                {
-                    throw new UnauthorizedAccessException("El usuario no está autorizado para la acción.");
-                }
-                
-                if (user.IsActive)
-                {
-                    if(user.EncryptedToken == EncryptString(token))
-                    {
-                        if(DateTime.Now > user.TokenExpireDate)
-                        {
-                            throw new UnauthorizedAccessException("El token ha expirado.");
-                        }
-                        else
-                        {
-                            return true;
-                        }
-                    }
-                    else
-                    {
-                        throw new UnauthorizedAccessException("El token es incorrecto.");
-                    }
-                }
-                else
-                {
-                    throw new InvalidOperationException("El usuario no está activo.");
-                }
-            }
-            else
+            if (user.IsActive == false)
             {
-                throw new InvalidCredentialException("El usuario no existe");
+                throw new InvalidCredentialException("El usuario no está activo.");
             }
+
+            var authorizedAction = _serviceContext.Set<AuthorizationItem>()
+                    .Where(a => a.ControllerName == controller
+                          && a.ActionName == action
+                          && a.HTTPMethodType == method)
+                    .FirstOrDefault();
+
+            if (authorizedAction == null)
+            {
+                throw new Exception("Hubo un error inesperado en la base de datos.");
+            }
+
+            var userAuthorization = _serviceContext.Set<RolAuthorization>()
+                    .Where(a => a.IdRol == user.IdRol
+                          && a.IdAuthorization == authorizedAction.Id
+                          && a.IsActive == true)
+                    .FirstOrDefault();
+
+            if (userAuthorization == null) 
+            {
+                throw new UnauthorizedAccessException("El usuario no está autorizado para la acción.");
+            }
+
+            if(VerifyHashedKey(token, user.EncryptedToken))
+            {
+                throw new UnauthorizedAccessException("El token es incorrecto.");
+            }
+
+            if (DateTime.Now > user.TokenExpireDate)
+            {
+                throw new UnauthorizedAccessException("El token ha expirado.");
+            }
+            
+            return true;
         }
 
-        private string EncryptString(string key)
+        private string HashString(string key)
         {
             return BCrypt.Net.BCrypt.HashPassword(key);
+        }
+
+        public bool VerifyHashedKey(string key, string hash)
+        {
+            return BCrypt.Net.BCrypt.Verify(key, hash);
         }
     }
 }
