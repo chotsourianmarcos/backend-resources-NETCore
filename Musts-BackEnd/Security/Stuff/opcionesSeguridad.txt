@@ -10,5 +10,6 @@ de una clave secreta y se puede validar sin consultar a base.
 *que los roles y permisos se consulten y guarden en base, a mano.
 *que los roles y permisos se verifiquen a partir del HTTP User object y de lo que trae ya .NET (FWK de
 Middlewares y decoradores Authorization, Rol, etcs) sin necesidad de ir a base.
+*igual ojo, que los roles y autorizaciones estén definidos en base tiene sus ventajas. no dependés de esa API.
 
 De todo esto, que investiguen y elijan lo que puedan/prefieran.
