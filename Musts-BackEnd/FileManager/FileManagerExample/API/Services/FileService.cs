@@ -12,23 +12,10 @@ namespace API.Services
         {
             _serviceContext = serviceContext;
         }
-        public int InsertFile(FileUploadModel fileUploadModel)
+        public int InsertFile(FileItem fileItem)
         {
             try
             {
-                var fileItem = new FileItem();
-                fileItem.Id = 0;
-                fileItem.Name = fileUploadModel.Name;
-                fileItem.InsertDate = DateTime.Now;
-                fileItem.UpdateDate = DateTime.Now;
-                fileItem.FileExtension = fileUploadModel.FileExtension;
-
-                using (var stream = new MemoryStream())
-                {
-                    stream.Write(fileUploadModel.Content, 0, fileUploadModel.Content.Length);
-                    fileItem.Content = stream.ToArray();
-                }
-
                 _serviceContext.Files.Add(fileItem);
                 _serviceContext.SaveChanges();
                 return fileItem.Id;
@@ -38,7 +25,7 @@ namespace API.Services
                 throw;
             }
         }
-        public List<FileIdentifierModel> InsertFiles(List<FileUploadModel> filesUploadModel)
+        public List<FileIdentifierModel> InsertFiles(List<FileItem> fileItemList)
         {
             throw new NotImplementedException();
         }

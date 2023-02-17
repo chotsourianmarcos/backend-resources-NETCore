@@ -1,6 +1,9 @@
 ﻿using API.IServices;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
+using Microsoft.VisualBasic.FileIO;
+using System;
 using System.IO;
 
 namespace API.Controllers
@@ -14,17 +17,28 @@ namespace API.Controllers
         {
             _fileService = fileService;
         }
+
         [HttpPost(Name = "PostFile")]
         public int PostFile([FromForm] FileUploadModel fileUploadModel)
         {
-            if (fileUploadModel == null)
-            {
-                throw new InvalidOperationException();
-            }
-
             try
             {
-                return _fileService.InsertFile(fileUploadModel);
+                //validaciones varias, de extension, tamaño, etcs
+                var fileItem = new FileItem();
+                fileItem.Id = 0;
+                fileItem.Name = fileUploadModel.File.FileName;
+                fileItem.InsertDate = DateTime.Now;
+                fileItem.UpdateDate = DateTime.Now;
+                fileItem.FileExtension = fileUploadModel.FileExtension;
+
+                using (var stream = new MemoryStream())
+                {
+                    fileUploadModel.File.CopyTo(stream);
+                    fileItem.Content = stream.ToArray();
+                }
+
+                //tmb considerar qué archivos habría que encryptar o eso?
+                return _fileService.InsertFile(fileItem);
             }
             catch (Exception)
             {
@@ -32,33 +46,28 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet(Name = "DownloadFile")]
-        public void DownloadFile(int id)
+        [HttpGet(Name = "GetFileById")]
+        public FileStreamResult GetFileById(int id)
         {
             try
             {
-                var file = _fileService.GetFileById(id);
-                var content = new MemoryStream(file.Content);
-                var path = Path.Combine(
-                   Directory.GetCurrentDirectory(), "FileDownloaded",
-                   file.Name);
-
-                using (var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write))
+                var fileItem = _fileService.GetFileById(id);
+                var stream = new MemoryStream(fileItem.Content);
+                //no hardcodear ese MIME
+                return new FileStreamResult(stream, new MediaTypeHeaderValue("image/jpg"))
                 {
-                    content.CopyToAsync(fileStream);
-                }
+                    FileDownloadName = fileItem.Name
+                };
             }
             catch (Exception)
             {
                 throw;
             }
         }
-        //public void CopyStream(Stream stream, string downloadPath)
-        //{
-        //    using (var fileStream = new FileStream(downloadPath, FileMode.Create, FileAccess.Write))
-        //    {
-        //        stream.CopyToAsync(fileStream);
-        //    }
-        //}
+
+        //DOWNLOADEAR NO ES UN MUST. LUEGO VERLO
+        //EN SÍ QUE LO DESCARGUE EL FRONT, UNA API NO DEBERÍA TENER UN "DOWNLOAD" O SÍ?
+        //NO PODEMOS ASUMIR QUE LA VA A CONSUMIR UN NAVEGADOR, DIGAMOS
+        
     }
 }

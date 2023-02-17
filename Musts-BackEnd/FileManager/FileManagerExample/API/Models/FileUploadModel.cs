@@ -5,8 +5,7 @@ namespace API.Models
 {
     public class FileUploadModel
     {
-        public string Name { get; set; }
-        public byte[] Content { get; set; }
+        public IFormFile File { get; set; }
         public FileExtensionEnum FileExtension { get; set; }
     }
 }
