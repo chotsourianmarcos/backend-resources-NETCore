@@ -24,8 +24,8 @@ namespace Security.Services
         public bool ValidateUserToken(string authorization, string controller, string action, string method)
         {
             var indexToSplit = authorization.IndexOf(':');
-            var userName = authorization.Substring(0, indexToSplit);
-            var token = authorization.Substring(indexToSplit +1, authorization.Length - userName.Length -1);
+            var userName = authorization.Substring(7, indexToSplit - 7);
+            var token = authorization.Substring(indexToSplit +1, authorization.Length - userName.Length -8);
             return _userSecurityLogic.ValidateUserToken(userName, token, controller, action, method);
         }
     }

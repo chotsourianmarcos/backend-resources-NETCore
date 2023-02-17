@@ -1,5 +1,5 @@
 ﻿using Entities.Entities;
-using Entities.Tables;
+using Entities.Relations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -35,7 +35,7 @@ namespace Data
 
             builder.Entity<AuthorizationItem>(user =>
             {
-                user.ToTable("Authorizations");
+                user.ToTable("EndpointAuthorizations");
             });
 
             builder.Entity<RolAuthorization>(user =>

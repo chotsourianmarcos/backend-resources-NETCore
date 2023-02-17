@@ -16,9 +16,9 @@ VALUES
 --la pass es sasasa10000
 
 INSERT INTO Authorizations
-(ControllerName, ActionName, HTTPMethodType, InsertDate)
+(ControllerName, ActionName, HTTPMethodType, InsertDate, [Name])
 VALUES
-('user', 'insertuser', 'POST', GETDATE())
+('user', 'insertuser', 'POST', GETDATE(), 'InsertUser')
 
 INSERT INTO Rols_Authorizations
 (IdRol, IdAuthorization, IsActive)
@@ -29,3 +29,4 @@ VALUES
 --Convenciones y buenos nombres de tablas, columnas y eso
 --Ok que hay cosas que puede hacerse mejor, pero para que lo puedan pensar y comprender
 --pensar muy bien qué recursos mínimos, medios y bonuses les doy. qué está bien hecho y qué no tanto y qué para nada, etcs.
+--realmente ir a lo mínimo, les va a costar.

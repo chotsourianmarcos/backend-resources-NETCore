@@ -1,7 +1,7 @@
 ﻿using BCrypt.Net;
 using Data;
 using Entities.Entities;
-using Entities.Tables;
+using Entities.Relations;
 using Logic.ILogic;
 using System;
 using System.Collections.Generic;
@@ -85,7 +85,7 @@ namespace Logic.Logic
                 throw new UnauthorizedAccessException("El usuario no está autorizado para la acción.");
             }
 
-            if(VerifyHashedKey(token, user.EncryptedToken))
+            if(VerifyHashedKey(token, user.EncryptedToken) == false)
             {
                 throw new UnauthorizedAccessException("El token es incorrecto.");
             }
@@ -94,18 +94,23 @@ namespace Logic.Logic
             {
                 throw new UnauthorizedAccessException("El token ha expirado.");
             }
-            
+
+            user.TokenExpireDate = DateTime.Now.AddMinutes(10);
+            _serviceContext.SaveChanges();
+
             return true;
         }
 
-        private string HashString(string key)
+        public string HashString(string key)
         {
             return BCrypt.Net.BCrypt.HashPassword(key);
         }
 
-        public bool VerifyHashedKey(string key, string hash)
+        private bool VerifyHashedKey(string key, string hash)
         {
             return BCrypt.Net.BCrypt.Verify(key, hash);
         }
+
+        //usar sha256 para encryptar y verificar tokens? es más rápido, aunque menos seguro para strings cortos.
     }
 }

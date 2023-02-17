@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace Resources.Enums
 {
-    public enum UserRolEnum
+    public enum UserEnums
     {
-        GeneralAdmin = 1,
+        Administrator = 1,
         Operator = 2,
-        TechnicalSupport = 3
+    }
+
+    public enum AuthorizationItem
+    {
+        InsertUser = 1,
     }
 }

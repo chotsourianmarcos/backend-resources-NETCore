@@ -1,6 +1,7 @@
 ﻿using Data;
 using Entities.Entities;
 using Logic.ILogic;
+using Resources.Enums;
 using Resources.FilterModels;
 using System;
 using System.Collections.Generic;
@@ -54,11 +55,11 @@ namespace Logic.Logic
 
         public int InsertUser(UserItem userItem)
         {
-            if (userItem.IdRol == 1)
+            if (userItem.IdRol == (int)UserEnums.Administrator)
             {
                 throw new InvalidOperationException();
             };
-
+            userItem.EncryptedToken = "Not logged yet.";
             _serviceContext.Users.Add(userItem);
             _serviceContext.SaveChanges();
             return userItem.Id;

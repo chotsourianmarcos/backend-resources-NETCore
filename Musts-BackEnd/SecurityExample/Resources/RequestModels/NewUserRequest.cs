@@ -9,10 +9,9 @@ namespace Resources.RequestModels
 {
     public class NewUserRequest
     {
-        public int IdPerson { get; set; }
         public int IdRol { get; set; }
         public string UserName { get; set; }
-        public string EncryptedPassword { get; set; }
+        public string Password { get; set; }
 
         public UserItem ToUserItem()
         {
@@ -20,8 +19,6 @@ namespace Resources.RequestModels
 
             userItem.IdRol = IdRol;
             userItem.UserName = UserName;
-            userItem.EncryptedPassword = EncryptedPassword;
-
             userItem.InsertDate = DateTime.Now;
             userItem.UpdateDate = DateTime.Now;
             userItem.IsActive = true;

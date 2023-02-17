@@ -20,7 +20,7 @@ namespace Entities.Entities
         public bool IsActive { get; set; }
 
         //------------------------------------
-        //los atributos de seguridad deberían ir en una segunda tabla
+        //los atributos de seguridad deberían ir en una segunda tabla?
         public string EncryptedPassword { get; set; }
 
 
@@ -30,6 +30,7 @@ namespace Entities.Entities
 
         public DateTime TokenExpireDate { get; set; }
         public int FailedConsecutiveLogins { get; set; }
+        //bloquear según esto y tal
 
         //public void RefreshToken()
         //{

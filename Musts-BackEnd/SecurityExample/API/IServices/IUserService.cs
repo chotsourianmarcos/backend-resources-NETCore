@@ -11,6 +11,5 @@ namespace API.IServices
         void DeleteUser(int id);
         List<UserItem> GetAllUsers();
         List<UserItem> GetUsersByCriteria(UserFilter userFilter);
-        int InsertUserAuthorization(NewUserAuthRequest newUserAuthRequest);
     }
 }
