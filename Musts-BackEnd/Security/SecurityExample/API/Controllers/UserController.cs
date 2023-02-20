@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Resources.FilterModels;
 using Resources.RequestModels;
 using Security.IServices;
-using System.Security.Authentication;
-using System.Xml.Linq;
 
 namespace API.Controllers
 {
@@ -56,23 +54,5 @@ namespace API.Controllers
         {
             return _userService.GetUsersByCriteria(userFilter);
         }
-
-        //POR BASE, A MANO, CON ENUMS
-        //InsertRol
-        //GetRols
-        //DeleteRol
-        //PatchRol
-
-        //POR BASE, A MANO, CON ENUMS
-        //InsertAuthorizationItem
-        //GetAuthorizationItem
-        //DeleteAuthorizationItem
-        //PatchAuthorizationItem
-
-        //POR BASE, A MANO, SIN ENUMS
-        //InsertUserAuthorization
-        //GetUserAuthorization
-        //DeleteUserAuthorization
-        //PatchUserAuthorization
     }
 }

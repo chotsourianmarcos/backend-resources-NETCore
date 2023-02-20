@@ -110,7 +110,5 @@ namespace Logic.Logic
         {
             return BCrypt.Net.BCrypt.Verify(key, hash);
         }
-
-        //usar sha256 para encryptar y verificar tokens? es más rápido, aunque menos seguro para strings cortos.
     }
 }

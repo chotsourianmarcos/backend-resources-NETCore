@@ -3,12 +3,6 @@ using Entities.Relations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data
 {
@@ -24,23 +18,23 @@ namespace Data
 
             builder.Entity<UserItem>(user =>
             {
-                user.ToTable("Users");
+                user.ToTable("t_users");
                 user.HasOne<UserRolItem>().WithMany().HasForeignKey(u => u.IdRol);
             });
 
             builder.Entity<UserRolItem>(user =>
             {
-                user.ToTable("UserRols");
+                user.ToTable("t_user_rols");
             });
 
             builder.Entity<AuthorizationItem>(user =>
             {
-                user.ToTable("EndpointAuthorizations");
+                user.ToTable("t_endpoint_authorizations");
             });
 
             builder.Entity<RolAuthorization>(user =>
             {
-                user.ToTable("Rols_Authorizations");
+                user.ToTable("t_rols_authorizations");
                 user.HasOne<UserRolItem>().WithMany().HasForeignKey(a => a.IdRol);
                 user.HasOne<AuthorizationItem>().WithMany().HasForeignKey(a => a.IdAuthorization);
             });

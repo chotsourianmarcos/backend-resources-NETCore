@@ -3,11 +3,6 @@ using Entities.Entities;
 using Logic.ILogic;
 using Resources.Enums;
 using Resources.FilterModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic.Logic
 {
@@ -59,16 +54,18 @@ namespace Logic.Logic
             {
                 throw new InvalidOperationException();
             };
-            userItem.EncryptedToken = "Not logged yet.";
+
+            userItem.EncryptedToken = "NOT GENERATED";
+
             _serviceContext.Users.Add(userItem);
             _serviceContext.SaveChanges();
+
             return userItem.Id;
         }
 
         public void UpdateUser(UserItem userItem)
         {
             _serviceContext.Users.Update(userItem);
-
             _serviceContext.SaveChanges();
         }
     }
