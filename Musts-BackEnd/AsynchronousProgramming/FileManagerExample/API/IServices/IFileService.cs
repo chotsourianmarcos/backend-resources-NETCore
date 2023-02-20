@@ -5,9 +5,9 @@ namespace API.IServices
     public interface IFileService
     {
         Task<int> InsertFile(FileItem fileItem);
-        List<FileIdentifierModel> InsertFiles(List<FileItem> fileItemList);
+        Task<List<FileIdentifierModel>> InsertFiles(List<FileItem> fileItemList);
         void DeleteFile(int id);
-        FileItem GetFileById(int id);
-        List<FileItem> GetFilesByCriteria(FileSearchCriteria fileSearchCriteria);
+        Task<FileItem> GetFileById(int id);
+        Task<List<FileItem>> GetFilesByCriteria(FileSearchCriteria fileSearchCriteria);
     }
 }

@@ -47,11 +47,11 @@ namespace API.Controllers
         }
 
         [HttpGet(Name = "GetFileById")]
-        public FileStreamResult GetFileById(int id)
+        public async Task<FileStreamResult> GetFileById(int id)
         {
             try
             {
-                var fileItem = _fileService.GetFileById(id);
+                var fileItem = await _fileService.GetFileById(id);
                 var stream = new MemoryStream(fileItem.Content);
                 //no hardcodear ese MIME
                 return new FileStreamResult(stream, new MediaTypeHeaderValue("image/jpg"))

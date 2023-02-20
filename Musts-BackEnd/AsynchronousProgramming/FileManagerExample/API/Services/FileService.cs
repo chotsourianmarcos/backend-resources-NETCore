@@ -1,6 +1,7 @@
 ﻿using API.IServices;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic.FileIO;
 
 namespace API.Services
@@ -16,8 +17,8 @@ namespace API.Services
         {
             try
             {
-                await _serviceContext.Files.AddAsync(fileItem);
-                _serviceContext.SaveChanges();
+                _serviceContext.Files.Add(fileItem);
+                await _serviceContext.SaveChangesAsync();
                 return fileItem.Id;
             }
             catch (Exception)
@@ -25,18 +26,14 @@ namespace API.Services
                 throw;
             }
         }
-        public List<FileIdentifierModel> InsertFiles(List<FileItem> fileItemList)
-        {
-            throw new NotImplementedException();
-        }
         public void DeleteFile(int id)
         {
             throw new NotImplementedException();
         }
 
-        public FileItem GetFileById(int id)
+        public async Task<FileItem> GetFileById(int id)
         {
-            var file = _serviceContext.Set<FileItem>().Where(f => f.Id == id).FirstOrDefault();
+            var file = await _serviceContext.Set<FileItem>().Where(f => f.Id == id).FirstOrDefaultAsync();
             if(file != null)
             {
                 return file;
@@ -47,9 +44,14 @@ namespace API.Services
             }
         }
 
-        public List<FileItem> GetFilesByCriteria(FileSearchCriteria fileSearchCriteria)
+        Task<List<FileIdentifierModel>> IFileService.InsertFiles(List<FileItem> fileItemList)
         {
             throw new NotImplementedException();
-        }        
+        }
+
+        Task<List<FileItem>> IFileService.GetFilesByCriteria(FileSearchCriteria fileSearchCriteria)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
