@@ -1,7 +1,5 @@
 ﻿using API.IServices;
 using API.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic.FileIO;
 
 namespace API.Services
 {

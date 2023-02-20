@@ -47,7 +47,7 @@ namespace API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Files", (string)null);
+                    b.ToTable("t_files", (string)null);
                 });
 #pragma warning restore 612, 618
         }

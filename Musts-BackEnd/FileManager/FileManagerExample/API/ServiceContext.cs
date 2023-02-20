@@ -1,8 +1,6 @@
 ﻿using API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 
 namespace API
 {
@@ -15,7 +13,7 @@ namespace API
 
             builder.Entity<FileItem>(user =>
             {
-                user.ToTable("Files");
+                user.ToTable("t_files");
             });
         }
     }

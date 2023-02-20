@@ -2,9 +2,7 @@
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
-using Microsoft.VisualBasic.FileIO;
-using System;
-using System.IO;
+using System.Net.Mime;
 
 namespace API.Controllers
 {
@@ -23,7 +21,6 @@ namespace API.Controllers
         {
             try
             {
-                //validaciones varias, de extension, tamaño, etcs
                 var fileItem = new FileItem();
                 fileItem.Id = 0;
                 fileItem.Name = fileUploadModel.File.FileName;
@@ -37,7 +34,6 @@ namespace API.Controllers
                     fileItem.Content = stream.ToArray();
                 }
 
-                //tmb considerar qué archivos habría que encryptar o eso?
                 return _fileService.InsertFile(fileItem);
             }
             catch (Exception)
@@ -53,8 +49,8 @@ namespace API.Controllers
             {
                 var fileItem = _fileService.GetFileById(id);
                 var stream = new MemoryStream(fileItem.Content);
-                //no hardcodear ese MIME
-                return new FileStreamResult(stream, new MediaTypeHeaderValue("image/jpg"))
+                var mimeType = MediaTypeNames.Image.Jpeg.ToString();
+                return new FileStreamResult(stream, new MediaTypeHeaderValue(mimeType))
                 {
                     FileDownloadName = fileItem.Name
                 };
@@ -64,10 +60,5 @@ namespace API.Controllers
                 throw;
             }
         }
-
-        //DOWNLOADEAR NO ES UN MUST. LUEGO VERLO
-        //EN SÍ QUE LO DESCARGUE EL FRONT, UNA API NO DEBERÍA TENER UN "DOWNLOAD" O SÍ?
-        //NO PODEMOS ASUMIR QUE LA VA A CONSUMIR UN NAVEGADOR, DIGAMOS
-        
     }
 }
