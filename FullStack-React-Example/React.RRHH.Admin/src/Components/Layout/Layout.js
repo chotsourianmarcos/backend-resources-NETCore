@@ -4,20 +4,20 @@ import NavBar from '../NavBar/NavBar.js'
 import './Layout.css';
 
 function Layout() {
-    var navItems = [
+    var nodes = [
         {
-            dir: "home",
+            dir: "",
             name: "Home"
         },
         {
-            dir: "employees",
+            dir: "employees/",
             name: "Empleados"
         }
-    ];
+        ];
     return (
         <div id="Layout">
             <Header />
-            <NavBar links={navItems}/>
+            <NavBar basePath="/" nodes={nodes}/>
         </div>
     );
   }

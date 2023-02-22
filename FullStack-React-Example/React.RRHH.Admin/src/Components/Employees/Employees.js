@@ -1,22 +1,22 @@
 import NavBar from "../NavBar/NavBar";
 
 function Employees() {
-    var navItems = [
+    var nodes = [
         {
-            dir: "list",
+            dir: "",
             name: "Listado de Empleados"
         },
         {
-            dir: "addupdate",
+            dir: "/addupdate",
             name: "Agregar o Modificar Empleado"
         }
-    ];
+        ];
     return (
         <div id="Employees">
             <p className="main-text">
             Sección de empleados
             </p>
-            <NavBar links={navItems}/>
+            <NavBar basePath="/employees" nodes={nodes}/>
         </div>
     );
   }
