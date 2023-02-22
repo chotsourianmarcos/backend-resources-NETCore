@@ -1,3 +1,1 @@
-﻿using ConsoleApp;
-
-Console.WriteLine("Hola!");
+﻿Console.WriteLine("Hola!");

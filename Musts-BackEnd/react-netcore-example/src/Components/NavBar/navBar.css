@@ -1,0 +1,10 @@
+#nav-buttons-container{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: rgb(211, 211, 247);
+    padding: 5px 0 5px 0;
+}
+.nav-button a{
+    text-decoration: none;
+    font-size: larger;
+}
