@@ -17,7 +17,7 @@ namespace API.Controllers
             _employeeService = employeeService;
         }
 
-        [HttpPost(Name = "GetAllEmployees")]
+        [HttpGet(Name = "GetAllEmployees")]
         public List<EmployeeItem> GetAll()
         {
             return _employeeService.GetAllEmployees();

@@ -11,12 +11,6 @@ function NavBar(props) {
               <Link to={props.nodes.indexOf(node) === 0 ? props.basePath : props.basePath + node.dir.toLowerCase()}>{node.name}</Link>
             </button>
           )}
-          {/* <button className="nav-button">
-            <Link to="/">Home</Link>
-          </button>
-          <button className="nav-button">
-            <Link to="/employees">Employees</Link>
-          </button> */}
         </ul>
       </nav>
 
