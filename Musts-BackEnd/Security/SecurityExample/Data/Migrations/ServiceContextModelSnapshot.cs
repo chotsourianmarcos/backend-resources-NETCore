@@ -51,7 +51,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authorizations", (string)null);
+                    b.ToTable("t_endpoint_authorizations", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Entities.UserItem", b =>
@@ -96,7 +96,7 @@ namespace Data.Migrations
 
                     b.HasIndex("IdRol");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("t_users", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Entities.UserRolItem", b =>
@@ -122,7 +122,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserRols", (string)null);
+                    b.ToTable("t_user_rols", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Relations.RolAuthorization", b =>
@@ -148,7 +148,7 @@ namespace Data.Migrations
 
                     b.HasIndex("IdRol");
 
-                    b.ToTable("Rols_Authorizations", (string)null);
+                    b.ToTable("t_rols_authorizations", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Entities.UserItem", b =>

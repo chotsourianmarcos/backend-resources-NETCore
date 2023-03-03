@@ -12,8 +12,8 @@ VALUES
 INSERT INTO Users
 (IdRol, UserName, InsertDate, UpdateDate, IsActive, EncryptedPassword, EncryptedToken, TokenExpireDate, FailedConsecutiveLogins)
 VALUES
-(1, 'chotsourian.marcos@gmail.com', GETDATE(), GETDATE(), 1, '$2a$11$Q8Nbi1KlVJwmXgDNf2AZwOWa6/VRM.lqIukpovD7EEHhsI/dP335i', '', GETDATE(), 0)
---la pass es sasasa10000
+(1, 'chotsourian.marcos@gmail.com', GETDATE(), GETDATE(), 1, '$2a$11$V6c1zrNzHljeiIQ81bLaoeogagZWvr2JUkUs8CHmWzHYJ6T2l0S5q', '', GETDATE(), 0)
+--la pass es asdasd2
 
 INSERT INTO Authorizations
 (ControllerName, ActionName, HTTPMethodType, InsertDate, [Name])

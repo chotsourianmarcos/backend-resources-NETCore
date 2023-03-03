@@ -1,10 +1,7 @@
-﻿using BCrypt.Net;
-using Data;
+﻿using Data;
 using Entities.Entities;
 using Entities.Relations;
 using Logic.ILogic;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Security.Authentication;
 using System.Security.Cryptography;
@@ -34,7 +31,7 @@ namespace Logic.Logic
                 throw new InvalidOperationException("El usuario no está activo.");
             }
 
-            if (VerifyHashedKey(userPassword, user.EncryptedPassword))
+            if (!VerifyHashedKey(userPassword, user.EncryptedPassword))
             {
                 throw new UnauthorizedAccessException("La contraseña es incorrecta.");
             }

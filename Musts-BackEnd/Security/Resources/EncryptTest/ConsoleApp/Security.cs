@@ -13,5 +13,9 @@ namespace ConsoleApp
         {
             return BCrypt.Net.BCrypt.HashPassword(key);
         }
+        public bool VerifyKey(string key, string hash)
+        {
+            return BCrypt.Net.BCrypt.Verify(key, hash);
+        }
     }
 }
