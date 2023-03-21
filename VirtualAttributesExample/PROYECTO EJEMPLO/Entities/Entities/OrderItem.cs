@@ -1,10 +1,4 @@
-﻿using Microsoft.Identity.Client;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace Entities.Entities
 {
@@ -13,6 +7,7 @@ namespace Entities.Entities
         public int Id { get; set; }
         public Guid IdWeb { get; set; }
         public int IdProduct { get; set; }
+        [JsonIgnore]
         public virtual ProductItem Product { get; set;}
         public int Amount { get; set; }
         public DateTime OrderDate { get; set; }

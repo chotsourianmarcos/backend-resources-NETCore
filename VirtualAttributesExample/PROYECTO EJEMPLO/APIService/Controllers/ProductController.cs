@@ -1,5 +1,6 @@
 ﻿using APIService.IServices;
 using Entities.Entities;
+using Entities.RequestModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APIService.Controllers
@@ -8,19 +9,16 @@ namespace APIService.Controllers
     [Route("[controller]/[action]")]
     public class ProductController : ControllerBase
     {
-        private readonly ILogger<ProductController> _logger;
         private readonly IProductService _productService;
-        public ProductController(ILogger<ProductController> logger, IProductService productService)
+        public ProductController(IProductService productService)
         {
-            _logger = logger;
             _productService = productService;
         }
 
         [HttpPost(Name = "InsertProduct")]
-        public int Post([FromBody]ProductItem productItem)
+        public int Post([FromBody]NewProductRequest newProductRequest)
         {
-            //     _userService.ValidateCredentials(userItem);
-            return _productService.InsertProduct(productItem);
+            return _productService.InsertProduct(newProductRequest);
         }
         [HttpGet(Name = "GetProductOrders")]
         public List<OrderItem> GetOrders([FromQuery] int idProduct)

@@ -1,8 +1,14 @@
 ﻿using API.IServices;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
+using System.IO;
+using System.IO.Compression;
 using System.Net.Mime;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Net.WebRequestMethods;
 
 namespace API.Controllers
 {
@@ -60,5 +66,49 @@ namespace API.Controllers
                 throw;
             }
         }
+        [HttpGet(Name = "GetAllFilesList")]
+        public List<FileItem> GetAllFilesList()
+        {
+            return _fileService.GetAllFiles();
+        }
+
+        [HttpGet(Name = "GetAllFilesZip")]
+        public FileStreamResult GetAllFilesZip()
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                //required: using System.IO.Compression;
+                using (var zip = new ZipArchive(ms, ZipArchiveMode.Create, true))
+                {
+                    //QUery the Products table and get all image content
+                    _fileService.GetAllFiles().ForEach(file =>
+                    {
+                        var entry = zip.CreateEntry(file.Name);
+                        using (var fileStream = new MemoryStream(file.Content))
+                        using (var entryStream = entry.Open())
+                        {
+                            fileStream.CopyTo(entryStream);
+                        }
+                    });
+                }
+                return new FileStreamResult(ms, MediaTypeNames.Application.Zip)
+                {
+                    FileDownloadName = "images.zip"
+                };
+            }
+        }
+        //esto no parece funcar para GETs
+        //[HttpGet(Name = "GetAllFilesMPFD")]
+        //public MultipartFormDataContent GetAllFilesMPFD()
+        //{
+        //    var multiPartResult = new MultipartFormDataContent();
+        //    var fileItemList = _fileService.GetAllFiles();
+        //    foreach(var fileItem in fileItemList)
+        //    {
+        //        ByteArrayContent byteArrayContent = new ByteArrayContent(fileItem.Content);
+        //        multiPartResult.Add(byteArrayContent);
+        //    };
+        //    return multiPartResult;
+        //}
     }
 }

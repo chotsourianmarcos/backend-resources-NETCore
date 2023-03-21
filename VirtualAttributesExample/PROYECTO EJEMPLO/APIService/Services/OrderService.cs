@@ -24,10 +24,14 @@ namespace APIService.Services
         {
             return _orderLogic.GetProductRawPrice(id);
         }
+        public ProductItem GetProductItem(int id)
+        {
+            return _orderLogic.GetProductItem(id);
+        }
         public OrderItem ToOrderItem(NewOrderRequest newOrderRequest)
         {
             var orderItem = new OrderItem();
-            orderItem.IdWeb = new Guid();
+            orderItem.IdWeb = Guid.NewGuid();
             orderItem.IdProduct = newOrderRequest.IdProduct;
             orderItem.Amount = newOrderRequest.Amount;
             orderItem.OrderDate = newOrderRequest.OrderDate;

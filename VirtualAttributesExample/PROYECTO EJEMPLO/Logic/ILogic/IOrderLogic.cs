@@ -1,9 +1,4 @@
 ﻿using Entities.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic.ILogic
 {
@@ -11,5 +6,6 @@ namespace Logic.ILogic
     {
         void InsertOrderItem(OrderItem orderItem);
         public decimal GetProductRawPrice(int id);
+        ProductItem GetProductItem(int id);
     }
 }

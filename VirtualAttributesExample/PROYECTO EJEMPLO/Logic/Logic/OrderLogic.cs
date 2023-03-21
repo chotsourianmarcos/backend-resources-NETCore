@@ -2,11 +2,6 @@
 using Entities.Entities;
 using Logic.ILogic;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic.Logic
 {
@@ -28,6 +23,13 @@ namespace Logic.Logic
                 .Include(x => x.Product)
                 .Where(o => o.Id == id).FirstOrDefault();
             return orderItem.Product.RawPrice;
+        }
+        public ProductItem GetProductItem(int id)
+        {
+            var orderItem = _serviceContext.Set<OrderItem>()
+                .Include(x => x.Product)
+                .Where(o => o.Id == id).FirstOrDefault();
+            return orderItem.Product;
         }
     }
 }

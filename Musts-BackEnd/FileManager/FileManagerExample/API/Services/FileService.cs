@@ -44,6 +44,10 @@ namespace API.Services
                 throw new Exception("No se encontró el archivo.");
             }
         }
+        public List<FileItem> GetAllFiles()
+        {
+            return _serviceContext.Set<FileItem>().ToList();
+        }
 
         public List<FileItem> GetFilesByCriteria(FileSearchCriteria fileSearchCriteria)
         {

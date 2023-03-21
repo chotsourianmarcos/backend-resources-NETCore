@@ -7,5 +7,6 @@ namespace APIService.IServices
     {
         int InsertOrder(NewOrderRequest newOrderRequest);
         public decimal GetProductRawPrice(int id);
+        ProductItem GetProductItem(int id);
     }
 }

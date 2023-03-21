@@ -9,5 +9,6 @@ namespace API.IServices
         void DeleteFile(int id);
         FileItem GetFileById(int id);
         List<FileItem> GetFilesByCriteria(FileSearchCriteria fileSearchCriteria);
+        List<FileItem> GetAllFiles();
     }
 }
