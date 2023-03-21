@@ -1,0 +1,31 @@
+﻿using APIService.IServices;
+using Entities.Entities;
+using Microsoft.AspNetCore.Mvc;
+
+namespace APIService.Controllers
+{
+    [ApiController]
+    [Route("[controller]/[action]")]
+    public class ProductController : ControllerBase
+    {
+        private readonly ILogger<ProductController> _logger;
+        private readonly IProductService _productService;
+        public ProductController(ILogger<ProductController> logger, IProductService productService)
+        {
+            _logger = logger;
+            _productService = productService;
+        }
+
+        [HttpPost(Name = "InsertProduct")]
+        public int Post([FromBody]ProductItem productItem)
+        {
+            //     _userService.ValidateCredentials(userItem);
+            return _productService.InsertProduct(productItem);
+        }
+        [HttpGet(Name = "GetProductOrders")]
+        public List<OrderItem> GetOrders([FromQuery] int idProduct)
+        {
+            return _productService.GetProductOrders(idProduct);
+        }
+    }
+}
