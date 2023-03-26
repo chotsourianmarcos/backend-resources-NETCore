@@ -9,6 +9,7 @@ function App() {
   const [price, setPrice] = useState(0);
 
   const [imgBase64, setImgBase64] = useState(null);
+  const [imgFile, setImgFile] = useState(null);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -25,11 +26,20 @@ function App() {
       setImgBase64(reader.result)
     };
   }
-
   const handleSubmitBase64 = (event) => {
     event.preventDefault();
-    let newProductRequestModel = { title, price, imgBase64 };
-    productHandler.addProductImgBase64(newProductRequestModel);
+    let newProductBase64RequestModel = { title, price, imgBase64 };
+    productHandler.addProductImgBase64(newProductBase64RequestModel);
+  };
+
+  const handleImgFileChange = (event) => {
+    const file = event.target.files[0];
+    setImgFile(file);
+  }
+  const handleSubmitFile = (event) => {
+    event.preventDefault();
+    let newProductFileRequestModel = { title, price, imgFile };
+    productHandler.addProductImgFile(newProductFileRequestModel);
   };
 
   return (
@@ -50,16 +60,22 @@ function App() {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="img" className="form-label">Image</label>
+          <label htmlFor="imgBase64" className="form-label">Image Base 64</label>
           <input name="imgBase64" type="file" className="form-control" placeholder="Upload a picture" onChange={handleImgBase64Change} required />
         </div>
         <button onClick={handleSubmitBase64} className="btn btn-primary" id="btn">Upload con img en Base 64</button>
 
-      </form>
+        <div className="mb-3">
+          <label htmlFor="imgFile" className="form-label">Image File</label>
+          <input name="imgFile" type="file" className="form-control" placeholder="Upload a picture" onChange={handleImgFileChange} required />
+        </div>
+        <button onClick={handleSubmitFile} className="btn btn-primary" id="btn">Upload con img file</button>
+
+      </form >
 
       <Images />
 
-    </div>
+    </div >
 
   )
 }

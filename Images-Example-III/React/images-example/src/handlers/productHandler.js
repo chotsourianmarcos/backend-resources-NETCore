@@ -2,38 +2,55 @@ import { productService } from "../api-services/productService";
 
 export const productHandler = {
 
-    addProductImgBase64(newProduct) {
+    async addProductImgBase64(newProductBaseModel) {
         
-        if (!newProduct) {
+        if (!newProductBaseModel) {
             return;
         }
 
-        let imgStringData = newProduct.imgBase64;
+        let imgStringData = newProductBaseModel.imgBase64;
         let imgStringDataSplit = imgStringData.split(',');
         let imgContent = imgStringDataSplit[1];
         let imgExtension = imgStringDataSplit[0].split(';')[0].split(':')[1];
 
         let newProductBase64RequestModel = {
             "productData": {
-                "title": newProduct.title,
-                "price": newProduct.price
+                "title": newProductBaseModel.title,
+                "price": newProductBaseModel.price
             },
             "base64FileModel": {
-                "fileName": newProduct.title + "-Photo",
+                "fileName": newProductBaseModel.title + "-Photo",
                 "base64FileContent": imgContent,
                 "extension": imgExtension
             }
         }
 
-        return productService.submitProductImgBase64(newProductBase64RequestModel);
+        return await productService.submitProductImgBase64(newProductBase64RequestModel);
 
     },
 
     async loadProductsBas64Array() {
 
-        var result = await productService.getProductsBase64Array();
-        return result;
+        return await productService.getProductsBase64Array();
 
     },
+
+    async addProductImgFile(newProductBaseModel) {
+        
+        if (!newProductBaseModel) {
+            return;
+        }
+
+        let newProductFileRequestModel = {
+            "productData": {
+                "title": newProductBaseModel.title,
+                "price": newProductBaseModel.price
+            },
+            "file": newProductBaseModel.imgFile
+        }
+
+        return await productService.submitProductFile(newProductFileRequestModel);
+
+    }
 
 }

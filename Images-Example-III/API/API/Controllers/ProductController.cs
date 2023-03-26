@@ -3,6 +3,7 @@ using API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Net.Http.Headers;
+using Newtonsoft.Json;
 using System.Net.Mime;
 
 namespace API.Controllers
@@ -19,39 +20,51 @@ namespace API.Controllers
             _productService = productService;
         }
 
-        //POST FILE FROM IFORMFILE
-        //[HttpPost(Name = "PostProductA")]
-        //public int PostProductA([FromForm] NewProductRequestA newProductRequest)
-        //{
-        //    try
-        //    {
-        //        var fileItem = new FileItem();
-        //        fileItem.Id = 0;
-        //        fileItem.Name = newProductRequest.File.FileName;
-        //        fileItem.InsertDate = DateTime.Now;
-        //        fileItem.UpdateDate = DateTime.Now;
-        //        fileItem.FileExtension = newProductRequest.FileExtension;
+        [HttpPost(Name = "PostProductFile")]
+        public int PostProductFile([FromForm] NewProductFileRequest newProductFileRequest)
+        {
+            try
+            {
+                var fileItem = new FileItem();
+                fileItem.Id = 0;
+                fileItem.Name = newProductFileRequest.File.FileName;
+                fileItem.InsertDate = DateTime.Now;
+                fileItem.UpdateDate = DateTime.Now;
+                if(newProductFileRequest.File.ContentType == "image/jpeg")
+                {
+                    fileItem.FileExtension = Enums.FileExtensionEnum.JPG;
+                }
+                else if (newProductFileRequest.File.ContentType == "image/png")
+                {
+                    fileItem.FileExtension = Enums.FileExtensionEnum.PGN;
+                }
+                else
+                {
+                    throw new InvalidDataException();
+                }
 
-        //        using (var stream = new MemoryStream())
-        //        {
-        //            newProductRequest.File.CopyTo(stream);
-        //            fileItem.Content = stream.ToArray();
-        //        }
+                using (var stream = new MemoryStream())
+                {
+                    newProductFileRequest.File.CopyTo(stream);
+                    fileItem.Content = stream.ToArray();
+                }
 
-        //        var fileId = _fileService.InsertFile(fileItem);
+                var fileId = _fileService.InsertFile(fileItem);
 
-        //        var productItem = newProductRequest.NewProductForm.ToProductItem();
-        //        productItem.IdPhotoFile = fileId;
-        //        return _productService.InsertProduct(productItem);
+                var productData = JsonConvert.DeserializeObject<ProductData>(newProductFileRequest.StringProductData);
+                var productItem = productData.ToProductItem();
 
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
+                productItem.IdPhotoFile = fileId;
 
-        //POST FILE FROM JSON IN BASE64
+                return _productService.InsertProduct(productItem);
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         [HttpPost(Name = "PostBase64")]
         public int PostBase64([FromBody] NewProductBase64Request newProductBase64RequestModel)
         {
@@ -78,6 +91,7 @@ namespace API.Controllers
                 var fileId = _fileService.InsertFile(fileItem);
 
                 var productItem = newProductBase64RequestModel.ProductData.ToProductItem();
+
                 productItem.IdPhotoFile = fileId;
 
                 return _productService.InsertProduct(productItem);

@@ -1,9 +1,12 @@
-﻿namespace API.Models
+﻿using System.Text.Json.Serialization;
+
+namespace API.Models
 {
     public class ProductData
     {
         public string Title { get; set; }
         public int Price { get; set; }
+
         public ProductItem ToProductItem()
         {
             ProductItem productItem = new ProductItem();
