@@ -3,31 +3,34 @@ import { useState } from 'react'
 
 function Images() {
 
-    let [imagesArray, setImagesArray] = useState([]);
+    let [imgsBase64Array, setImgsBase64Array] = useState([]);
 
-    async function onChangeImagesArray() {
-        let loadedProducts = await productHandler.loadProducts();
-        setImagesArray(loadedProducts);
+    async function onChangeImgsBase64Array() {
+        let loadedBase64Imgs = await productHandler.loadProductsBas64Array();
+        setImgsBase64Array(loadedBase64Imgs);
     }
 
-    function buildImgSrc(content) {
-        return "data:image/png;base64," + content;
+    function buildImgSrc(extension, content) {
+        return "data:" + extension + ";base64," + content;
     }
-    if (imagesArray != undefined && imagesArray != null && imagesArray.length > 0) {
+
+    if (imgsBase64Array.length > 0) {
+
         return (
             <div>
-                <button className="btn btn-primary" id="btn" onClick={onChangeImagesArray}>CargarImagenes</button>
-                {imagesArray.map(img => (
-                    <img src={buildImgSrc(img.content)} alt="sasasa" min-width="1000" min-height="1000" />
+                <button className="btn btn-primary" id="btn" onClick={onChangeImgsBase64Array}>CargarImagenes desde lista en Base64</button>
+                {imgsBase64Array.map(img => (
+                    <img key={imgsBase64Array.indexOf(img)} src={buildImgSrc(img.extension, img.base64FileContent)} alt="sasasa" min-width="1000" min-height="1000" />
                 ))}
 
             </div>
-
         )
+
     } else {
+
         return (
             <div>
-                <button className="btn btn-primary" id="btn" onClick={onChangeImagesArray}>CargarImagenes</button>
+                <button className="btn btn-primary" id="btn" onClick={onChangeImgsBase64Array}>CargarImagenes</button>
                 <div>
                     No hay orcos en la costa.
                 </div>
@@ -38,7 +41,3 @@ function Images() {
 }
 
 export default Images;
-
-        //     {imagesArray.map(img => (
-        //         <img src={buildImgSrc(img.base64FileContent)} alt="sasasa" width="100" height="100">
-        // ))}

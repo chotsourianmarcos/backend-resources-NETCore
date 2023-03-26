@@ -7,7 +7,8 @@ function App() {
 
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState(0);
-  const [img, setImg] = useState(null);
+
+  const [imgBase64, setImgBase64] = useState(null);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -15,31 +16,27 @@ function App() {
   const handlePriceChange = (event) => {
     setPrice(event.target.value);
   };
-  const handleImgChange = (event) => {
+
+  const handleImgBase64Change = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      setImg(reader.result)
+      setImgBase64(reader.result)
     };
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmitBase64 = (event) => {
     event.preventDefault();
-    let newProduct = { title, price, img };
-    productHandler.addProduct(newProduct);
-    event.target.reset()
+    let newProductRequestModel = { title, price, imgBase64 };
+    productHandler.addProductImgBase64(newProductRequestModel);
   };
-
-  var images = null;
-
-  function loadImages(){
-    images = productHandler.loadProducts();
-  }
 
   return (
     <div className="App">
-      <form onSubmit={handleSubmit} itemID="form1">
+
+      <form itemID="form1">
+
         <h1>Create a new product</h1>
 
         <div className="mb-3">
@@ -54,16 +51,16 @@ function App() {
 
         <div className="mb-3">
           <label htmlFor="img" className="form-label">Image</label>
-          <input name="img" type="file" className="form-control" placeholder="Upload a picture" onChange={handleImgChange} required />
+          <input name="imgBase64" type="file" className="form-control" placeholder="Upload a picture" onChange={handleImgBase64Change} required />
         </div>
+        <button onClick={handleSubmitBase64} className="btn btn-primary" id="btn">Upload con img en Base 64</button>
 
-        <button type="submit" className="btn btn-primary" id="btn">Upload</button>
       </form>
 
-      <Images/>
-        
+      <Images />
+
     </div>
-    
+
   )
 }
 

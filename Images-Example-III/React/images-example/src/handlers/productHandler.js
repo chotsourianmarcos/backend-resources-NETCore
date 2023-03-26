@@ -1,51 +1,39 @@
 import { productService } from "../api-services/productService";
 
 export const productHandler = {
-    addProduct(newProduct) {
+
+    addProductImgBase64(newProduct) {
+        
         if (!newProduct) {
             return;
         }
 
-        let imgStringData = newProduct.img;
+        let imgStringData = newProduct.imgBase64;
         let imgStringDataSplit = imgStringData.split(',');
         let imgContent = imgStringDataSplit[1];
-        //pendiente ver con qué splits o regex obtener el tipo de archivo (jpg, pgn, lo que sea)
+        let imgExtension = imgStringDataSplit[0].split(';')[0].split(':')[1];
 
-        //ASÍ SE ENVIARÍA SI FUERA UN SOLO OBJETO COMPLETO Y ENTERO
-        let newProductRequestModel = {
+        let newProductBase64RequestModel = {
             "productData": {
                 "title": newProduct.title,
                 "price": newProduct.price
             },
-            "fileData": {
+            "base64FileModel": {
                 "fileName": newProduct.title + "-Photo",
-                "base64FileContent": imgContent
+                "base64FileContent": imgContent,
+                "extension": imgExtension
             }
         }
-        //RESUMEN, FUNCIONA!
 
-        //ASÍ LO ENVIAMOS COMO UN MULTIPART DE OBJETOS SEPARADOS POR EL BÁCULO DE GANDALF
-        //DE MORIA CUAL BALROG EN LAS MINAS
-        // let productData = {
-        //     "title": newProduct.title,
-        //     "price": newProduct.price
-        // };
-        // let fileData = {
-        //     "fileName": newProduct.title + "-Photo",
-        //     "base64FileContent": imgContent
-        // };
-        // let newProductMPFD = new FormData();
-        // newProductMPFD.append("productData", productData);
-        // newProductMPFD.append("fileData", fileData);
-        //RESUMEN, LOS DATOS LLEGAN NULOS, REVEER CÓMO SE ARMA ASÍ
-
-        return productService.submitProduct(newProductRequestModel);
+        return productService.submitProductImgBase64(newProductBase64RequestModel);
 
     },
 
-    async loadProducts() {
-        var result = await productService.getProducts();
+    async loadProductsBas64Array() {
+
+        var result = await productService.getProductsBase64Array();
         return result;
+
     },
-    
+
 }
