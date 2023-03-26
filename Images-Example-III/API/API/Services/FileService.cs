@@ -24,19 +24,6 @@ namespace API.Services
                 throw;
             }
         }
-
-        public FileItem GetFileById(int id)
-        {
-            var file = _serviceContext.Set<FileItem>().Where(f => f.Id == id).FirstOrDefault();
-            if(file != null)
-            {
-                return file;
-            }
-            else
-            {
-                throw new Exception("No se encontró el archivo.");
-            }
-        }
         public List<FileItem> GetAllFiles()
         {
             return _serviceContext.Set<FileItem>().ToList();

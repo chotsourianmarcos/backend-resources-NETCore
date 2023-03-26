@@ -3,6 +3,6 @@
     public class NewProductFileRequest
     {
         public IFormFile File { get; set; }
-        public string StringProductData { get; set; }
+        public string ProductDataString { get; set; }
     }
 }

@@ -1,16 +1,14 @@
 ﻿using API.IServices;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
-using System.Net.Mime;
+using System.IO.Compression;
 
 namespace API.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class ProductController
+    public class ProductController : ControllerBase
     {
         private readonly IFileService _fileService;
         public readonly IProductService _productService;
@@ -26,11 +24,12 @@ namespace API.Controllers
             try
             {
                 var fileItem = new FileItem();
+
                 fileItem.Id = 0;
                 fileItem.Name = newProductFileRequest.File.FileName;
                 fileItem.InsertDate = DateTime.Now;
                 fileItem.UpdateDate = DateTime.Now;
-                if(newProductFileRequest.File.ContentType == "image/jpeg")
+                if (newProductFileRequest.File.ContentType == "image/jpeg")
                 {
                     fileItem.FileExtension = Enums.FileExtensionEnum.JPG;
                 }
@@ -51,9 +50,8 @@ namespace API.Controllers
 
                 var fileId = _fileService.InsertFile(fileItem);
 
-                var productData = JsonConvert.DeserializeObject<ProductData>(newProductFileRequest.StringProductData);
+                var productData = JsonConvert.DeserializeObject<ProductData>(newProductFileRequest.ProductDataString);
                 var productItem = productData.ToProductItem();
-
                 productItem.IdPhotoFile = fileId;
 
                 return _productService.InsertProduct(productItem);
@@ -91,7 +89,6 @@ namespace API.Controllers
                 var fileId = _fileService.InsertFile(fileItem);
 
                 var productItem = newProductBase64RequestModel.ProductData.ToProductItem();
-
                 productItem.IdPhotoFile = fileId;
 
                 return _productService.InsertProduct(productItem);
@@ -102,49 +99,30 @@ namespace API.Controllers
             }
         }
 
-        //GET SINGLE FILE AS FILESTREAM
-        //[HttpGet(Name = "GetFileByIdA")]
-        //public FileStreamResult GetFileByIdA(int id)
-        //{
-        //    try
-        //    {
-        //        var fileItem = _fileService.GetFileById(id);
-        //        var stream = new MemoryStream(fileItem.Content);
-        //        var mimeType = MediaTypeNames.Image.Jpeg.ToString();
-        //        return new FileStreamResult(stream, new MediaTypeHeaderValue(mimeType))
-        //        {
-        //            FileDownloadName = fileItem.Name
-        //        };
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
-
-        //GET SINGLE FILE AS JSON IN BASE64
-        //[HttpGet(Name = "GetFileByIdB")]
-        //public Base64FileModel GetFileByIdB(int id)
-        //{
-        //    try
-        //    {
-        //        var fileItem = _fileService.GetFileById(id);
-
-        //        Base64FileModel base64FileModel = new Base64FileModel();
-        //        base64FileModel.FileName = fileItem.Name;
-        //        base64FileModel.Content = fileItem.Base64Content;
-        //        base64FileModel.FileExtension = fileItem.FileExtension;
-
-        //        return base64FileModel;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
+        //GET MULTIPLE FILES AS ZIP
+        [HttpGet(Name = "GetAllFilesAsZip")]
+        public IActionResult GetAllFilesAsZip()
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (var zip = new ZipArchive(ms, ZipArchiveMode.Create, true))
+                {
+                    _fileService.GetAllFiles().ForEach(file =>
+                    {
+                        var entry = zip.CreateEntry(file.Name);
+                        using (var fileStream = new MemoryStream(file.Content))
+                        using (var entryStream = entry.Open())
+                        {
+                            fileStream.CopyTo(entryStream);
+                        }
+                    });
+                }
+                return File(ms.ToArray(), "application/zip", "images.zip");
+            }
+        }
 
         //GET MULTIPLE FILES AS JSON IN BASE64
-        [HttpGet(Name = "GetAllFilesList")]
+        [HttpGet(Name = "GetAllBase64List")]
         public List<Base64FileModel> GetAllBase64List()
         {
             var fileList = _fileService.GetAllFiles();
@@ -154,6 +132,7 @@ namespace API.Controllers
             foreach(var file in fileList)
             {
                 Base64FileModel base64FileModel = new Base64FileModel();
+
                 base64FileModel.FileName = file.Name;
                 base64FileModel.Base64FileContent = file.Base64Content;
                 if (file.FileExtension == Enums.FileExtensionEnum.JPG)
@@ -168,42 +147,12 @@ namespace API.Controllers
                 {
                     throw new NotImplementedException();
                 }
+
                 base64FileList.Add(base64FileModel);
             }
 
             return base64FileList;
         }
 
-        //GET MULTIPLE FILES IN .ZIP?
-        //GET MULTIPLE FILES IN MPFD?
-
-        //---------------------------
-
-        //[HttpPost(Name = "PostProductGandalfizado")]
-        //public int PostProductGandalfizado([FromBody] NewProductMPFDRequest paramus)
-        //{
-        //    try
-        //    {
-        //        var fileItem = new FileItem();
-
-        //        fileItem.Id = 0;
-        //        fileItem.Name = paramus.FileData.FileName;
-        //        fileItem.InsertDate = DateTime.Now;
-        //        fileItem.UpdateDate = DateTime.Now;
-        //        fileItem.Content = Convert.FromBase64String(paramus.FileData.Base64FileContent);
-
-        //        var fileId = _fileService.InsertFile(fileItem);
-
-        //        var productItem = new ProductItem();
-        //        productItem.Name = paramus.ProductData.Title;
-        //        productItem.Price = Convert.ToDecimal(paramus.ProductData.Price);
-        //        productItem.IdPhotoFile = fileId;
-        //        return _productService.InsertProduct(productItem);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
     }
 }
