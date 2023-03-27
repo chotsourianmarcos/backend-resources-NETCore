@@ -154,5 +154,11 @@ namespace API.Controllers
             return base64FileList;
         }
 
+        //[HttpGet(Name = "GetAllProductsInfo")]
+        //public List<ProductInfoModel> GetAllProductsInfo()
+        //{
+        //    not implemented
+        //}
+
     }
 }

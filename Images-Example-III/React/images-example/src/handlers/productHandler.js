@@ -1,12 +1,9 @@
 import { productService } from "../api-services/productService";
+import JSZip from 'jszip';
 
 export const productHandler = {
 
     async addProductImgBase64(newProductBaseModel) {
-        
-        if (!newProductBaseModel) {
-            return;
-        }
 
         let imgStringData = newProductBaseModel.imgBase64;
         let imgStringDataSplit = imgStringData.split(',');
@@ -29,17 +26,13 @@ export const productHandler = {
 
     },
 
-    async loadProductsBas64Array() {
+    async loadProductsBase64Array() {
 
         return await productService.getProductsBase64Array();
 
     },
 
     async addProductImgFile(newProductBaseModel) {
-        
-        if (!newProductBaseModel) {
-            return;
-        }
 
         let newProductFileRequestModel = {
             "productData": {
@@ -50,6 +43,39 @@ export const productHandler = {
         }
 
         return await productService.submitProductFile(newProductFileRequestModel);
+
+    },
+
+    async loadProductsFilesArray() {
+
+        var filesZip = await productService.getProductsFilesZip();
+        const zip = new JSZip();
+        const extractedZip = await zip.loadAsync(filesZip);
+        const filesList = [];
+        for(var item of Object.entries(extractedZip.files)) {
+            var fileItem = await zip.file(item[0]).async('blob');
+            var newBlob = new Blob([fileItem], { type: this.getFileContentType(item[0].split('.')[1]) });
+            filesList.push(newBlob);
+        }
+        return filesList;
+
+    },
+
+    getFileContentType(extension){
+    
+        const contentTypes = {
+            png: "image/png",
+            jpeg: "image/jpeg",
+            jpg: "image/jpg"
+        }
+
+        try{
+            if(contentTypes[extension].length > 0){
+                return contentTypes[extension];
+            }
+        }catch{
+            return "application/octet-stream";
+        }
 
     }
 
