@@ -1,6 +1,4 @@
-﻿using API.Enums;
-
-namespace API.Models
+﻿namespace API.Models
 {
     public class Base64FileModel
     {

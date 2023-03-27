@@ -99,7 +99,6 @@ namespace API.Controllers
             }
         }
 
-        //GET MULTIPLE FILES AS ZIP
         [HttpGet(Name = "GetAllFilesAsZip")]
         public IActionResult GetAllFilesAsZip()
         {
@@ -121,7 +120,6 @@ namespace API.Controllers
             }
         }
 
-        //GET MULTIPLE FILES AS JSON IN BASE64
         [HttpGet(Name = "GetAllBase64List")]
         public List<Base64FileModel> GetAllBase64List()
         {
@@ -153,12 +151,6 @@ namespace API.Controllers
 
             return base64FileList;
         }
-
-        //[HttpGet(Name = "GetAllProductsInfo")]
-        //public List<ProductInfoModel> GetAllProductsInfo()
-        //{
-        //    not implemented
-        //}
 
     }
 }

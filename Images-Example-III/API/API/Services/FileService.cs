@@ -15,7 +15,6 @@ namespace API.Services
             try
             {
                 _serviceContext.Files.Add(fileItem);
-                //_serviceContext.Products.Add(productItem);
                 _serviceContext.SaveChanges();
                 return fileItem.Id;
             }
