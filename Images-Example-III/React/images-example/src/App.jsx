@@ -2,8 +2,22 @@ import { useState } from 'react'
 import './App.css'
 import { productHandler } from './handlers/productHandler.js'
 import Images from './Images';
+import {productService} from './api-services/productService'
 
 function App() {
+
+  //solo de prueba
+
+  // const [productsFullInfo, setproductsFullInfo] = useState(null);
+
+  // async function getProductsFullInfo() {
+  //   var resultList = await productService.getFullProductsInfo();
+  //   setproductsFullInfo(resultList);
+  // }
+
+  // getProductsFullInfo();
+
+  //-------------
 
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState(0);

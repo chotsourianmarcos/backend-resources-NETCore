@@ -152,5 +152,46 @@ namespace API.Controllers
             return base64FileList;
         }
 
+        [HttpGet(Name = "GetFullProductsInfo")]
+        public List<FullProductInfoModel> GetFullProductsInfo()
+        {
+            var productsList = _productService.GetAllProducts();
+            var fileList = _fileService.GetAllFiles();
+
+            List<FullProductInfoModel> resultList = new List<FullProductInfoModel>();
+
+            foreach(var prod in productsList)
+            {
+                FullProductInfoModel resultItem = new FullProductInfoModel();
+
+                resultItem.ProductItem = prod;
+
+                var fileItem = fileList.Where(f => f.Id == prod.IdPhotoFile).First();
+
+                Base64FileModel base64FileModel = new Base64FileModel();
+
+                base64FileModel.FileName = fileItem.Name;
+                base64FileModel.Base64FileContent = fileItem.Base64Content;
+                if (fileItem.FileExtension == Enums.FileExtensionEnum.JPG)
+                {
+                    base64FileModel.Extension = "image/jpeg";
+                }
+                else if (fileItem.FileExtension == Enums.FileExtensionEnum.PGN)
+                {
+                    base64FileModel.Extension = "image/png";
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
+
+                resultItem.Base64FileModel = base64FileModel;
+
+                resultList.Add(resultItem);
+            }
+
+            return resultList;
+        }
+
     }
 }

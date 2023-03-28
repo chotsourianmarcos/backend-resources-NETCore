@@ -16,5 +16,9 @@ namespace API.Services
             _serviceContext.SaveChanges();
             return productItem.Id;
         }
+        public List<ProductItem> GetAllProducts()
+        {
+            return _serviceContext.Set<ProductItem>().ToList();
+        }
     }
 }
