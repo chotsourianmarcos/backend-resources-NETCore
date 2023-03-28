@@ -66,7 +66,7 @@ export const productService = {
     //     if (!response == 200) {
     //         alert("Upsi, hubo un error al traer los productos.")
     //     };
-    //     let allProducts = await response.data;
+    //     let allProducts = response.data;
     //     return allProducts;
     // },
 
