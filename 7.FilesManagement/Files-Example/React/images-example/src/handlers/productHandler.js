@@ -5,6 +5,9 @@ export const productHandler = {
 
     async addProductImgBase64(newProductBaseModel) {
 
+        //img dataURL
+        //"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAxcAAADVCAYetcs..."
+
         let imgStringData = newProductBaseModel.imgBase64;
         let imgStringDataSplit = imgStringData.split(',');
         let imgContent = imgStringDataSplit[1];

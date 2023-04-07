@@ -58,6 +58,16 @@ export const productService = {
         } else {
             alert("Upsi...hubo un error al insertar el producto");
         }
-    }
+    },
+
+    //solo de prueba
+    // async getFullProductsInfo() {
+    //     let response = await apiClient.get("/Product/GetFullProductsInfo");
+    //     if (!response == 200) {
+    //         alert("Upsi, hubo un error al traer los productos.")
+    //     };
+    //     let allProducts = response.data;
+    //     return allProducts;
+    // },
 
 }
