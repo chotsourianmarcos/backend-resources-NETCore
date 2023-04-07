@@ -46,10 +46,10 @@
 
 <p>7. Files Management</p>
 <p>-Proyecto de ejemplo .NET + React de manejo de archivos.</p>
-<p>-Subida de archivo individual en Multipart form data.</p>
+<p>-Subida de archivo individual en Multipart form data, guardado en base de datos.</p>
 <p>-Descarga de archivo como file.</p>
 <p>-Descarga de archivos como zip.</p>
-<p>-Subida de archivo como modelo en base 64.</p>
+<p>-Subida de archivo como modelo en base 64, guardado en base de datos.</p>
 <p>-Descarga de archivos como modelos en base 64.</p>
 </br>
 
