@@ -1,0 +1,25 @@
+-ingresar authorizaciones por Swagger
+https://code-maze.com/swagger-authorization-aspnet-core/
+
+-casos donde guardar tokens en la base de datos
+https://betterprogramming.pub/should-we-store-tokens-in-db-af30212b7f22
+
+-identificar, verificar, validar y autenticar
+https://alicebiometrics.com/identificar-verificar-validar-y-autenticar-no-son-lo-mismo/
+https://www.electronicverificationsystems.com/verification-vs-validation-vs-authentication
+https://www.miteksystems.com/es/blog/cual-es-la-diferencia-entre-verificacion-y-autenticacion
+
+-HTTPs
+https://www.siteground.es/blog/que-es-https-y-para-que-sirve-guia-completa/
+
+-JWT
+https://keepcoding.io/blog/que-es-jwt/
+https://medium.com/dataseries/public-claims-and-how-to-validate-a-jwt-1d6c81823826
+https://www.freecodecamp.org/news/how-to-sign-and-validate-json-web-tokens/
+
+-hasheo y encriptamiento
+https://kb.rolosa.com/cs-encriptacion-vs-hashing/
+
+-ISO/IEC 27032:2012
+https://sisteseg.com/blog/wp-content/uploads/2018/12/Implementaci%C3%B3n-ciberseguridad-ISO-27032.pdf
+https://www.linkedin.com/pulse/gesti%C3%B3n-de-la-ciberseguridad-seg%C3%BAn-el-isoiec-gianncarlo-g%C3%B3mez-morales/?originalSubdomain=es

@@ -1,0 +1,8 @@
+-tutorial UnitTest en .NET
+https://learn.microsoft.com/es-es/visualstudio/test/walkthrough-creating-and-running-unit-tests-for-managed-code?source=recommendations&view=vs-2022
+
+-tipos de pruebas
+https://learn.microsoft.com/es-es/dotnet/core/testing/
+
+-procedimientos recomendados
+https://learn.microsoft.com/es-es/dotnet/core/testing/unit-testing-best-practices

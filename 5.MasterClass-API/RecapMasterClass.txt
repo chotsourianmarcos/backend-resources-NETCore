@@ -1,0 +1,20 @@
+Mínimos ejemplificados en la demo:
+*-"""""Seguridad"""""
+*-Los ppales métodos HTTP completos
+*-Controlador completo
+*-Estructura de negocio completa en relación a las bases de datos
+*-Entidades aproximadamente completas y apropiadas en términos de atributos
+
+Extras ejemplificados en la demo:
+*-RequestObj
+*-FilterObj
+*-Exceptions
+*-Varias FK en una misma tabla
+*-Validación en la capa Logic
+*-Varios métodos del mismo tipo en un mismo controlador
+
+Obligatorios pendientes para más adelante:
+-Archivos e imágenes
+-Unit Testing
+-Seguridad
+-Asynchronous Programming
