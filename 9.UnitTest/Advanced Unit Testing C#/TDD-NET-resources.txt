@@ -1,0 +1,21 @@
+Faking, mocking, stubbing
+https://stackoverflow.com/questions/346372/whats-the-difference-between-faking-mocking-and-stubbing
+
+Mocking
+https://microsoft.github.io/code-with-engineering-playbook/automated-testing/unit-testing/mocking/
+
+Moq.Net
+https://blogs.encamina.com/piensa-en-software-desarrolla-en-colores/moq-net-introduccion-utilizarlo-ejemplos/
+
+Moq.Net ejemplo
+https://www.youtube.com/watch?v=VHwCMi8kc_M
+
+Assert excepciones
+https://stackoverflow.com/questions/933613/how-do-i-use-assert-to-verify-that-an-exception-has-been-thrown-with-mstest
+
+Unit Testing Data
+https://winder.ai/unit-testing-data-what-is-it-and-how-do-you-do-it/#:~:text=Saving%20costs%20and%20time%3A%20Unit,to%20reach%20better%20decision%2Dmaking.
+
+Unit Testing Data .NET
+https://learn.microsoft.com/en-us/visualstudio/test/how-to-create-a-data-driven-unit-test?view=vs-2022
+
