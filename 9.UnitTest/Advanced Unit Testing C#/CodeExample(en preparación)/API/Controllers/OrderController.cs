@@ -1,22 +1,57 @@
-﻿namespace API.Controllers
+﻿using API.IServices;
+using API.Models.Entities;
+using Microsoft.AspNetCore.Mvc;
+
+namespace API.Controllers
 {
     public class OrderController
     {
-        //private readonly IUserSecurityService _userSecurityService;
-        //private readonly IUserService _userService;
+        private readonly IOrderService _orderService;
+        public readonly IEmailService _emailService;
 
-        //public UserController(IUserSecurityService userSecurityService, IUserService userService)
-        //{
-        //    _userSecurityService = userSecurityService;
-        //    _userService = userService;
-        //}
+        public OrderController(IOrderService orderService,
+                                IEmailService emailService)
+        {
+            _orderService = orderService;
+            _emailService = emailService;   
+        }
 
-        //[EndpointAuthorize(AllowsAnonymous = true)]
-        //[HttpPost(Name = "LoginUser")]
-        //public string Login([FromBody] LoginRequest loginRequest)
-        //{
+        [HttpPost(Name = "InsertOrder")]
+        public int Add([FromBody] OrderItem orderItem)
+        {
 
-        //    return _userSecurityService.GenerateAuthorizationToken(loginRequest.UserName, loginRequest.UserPassword);
-        //}
+            var orderId = _orderService.InsertOrder(orderItem);
+            _emailService.SendNewOrderNotification(orderItem);
+            return orderId;
+        }
+
+        [HttpPatch(Name = "UpdateOrder")]
+        public void Update([FromBody] OrderItem orderItem)
+        {
+
+            _orderService.UpdateOrder(orderItem);
+        }
+
+        [HttpGet(Name = "GetOrders")]
+        public List<OrderItem> GetAll()
+        {
+
+            return _orderService.GetOrders();
+        }
+
+        [HttpGet(Name = "GetOrderById")]
+        public OrderItem GetById(int id)
+        {
+
+            return _orderService.GetOrderById(id);
+
+        }
+
+        [HttpDelete(Name = "DeactivateOrder")]
+        public void Deactivate(int id)
+        {
+
+            _orderService.DeactivateOrder(id);
+        }
     }
 }

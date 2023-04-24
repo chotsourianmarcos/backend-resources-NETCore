@@ -11,6 +11,6 @@
         public bool IsDelivered { get; set; }
         public bool IsActive { get; set; }
         public DateTime InsertDate { get; set; }
-        public DateTime UpdateDate { get; set; }
+        public DateTime? UpdateDate { get; set; }
     }
 }

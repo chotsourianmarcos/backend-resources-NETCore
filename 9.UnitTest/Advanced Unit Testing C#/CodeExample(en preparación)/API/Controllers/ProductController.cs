@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using API.IServices;
+using API.Models.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
 
@@ -8,21 +10,46 @@ namespace API.Controllers
     [Route("[controller]/[action]")]
     public class ProductController
     {
-        //private readonly IUserSecurityService _userSecurityService;
-        //private readonly IUserService _userService;
+        private readonly IProductService _ProductService;
 
-        //public UserController(IUserSecurityService userSecurityService, IUserService userService)
-        //{
-        //    _userSecurityService = userSecurityService;
-        //    _userService = userService;
-        //}
+        public ProductController(IProductService ProductService)
+        {
+            _ProductService = ProductService;
+        }
 
-        //[EndpointAuthorize(AllowsAnonymous = true)]
-        //[HttpPost(Name = "LoginUser")]
-        //public string Login([FromBody] LoginRequest loginRequest)
-        //{
+        [HttpPost(Name = "InsertProduct")]
+        public int Add([FromBody] ProductItem ProductItem)
+        {
 
-        //    return _userSecurityService.GenerateAuthorizationToken(loginRequest.UserName, loginRequest.UserPassword);
-        //}
+            return _ProductService.InsertProduct(ProductItem);
+        }
+
+        [HttpPatch(Name = "UpdateProduct")]
+        public void Update([FromBody] ProductItem ProductItem)
+        {
+
+            _ProductService.UpdateProduct(ProductItem);
+        }
+
+        [HttpGet(Name = "GetProducts")]
+        public List<ProductItem> GetAll()
+        {
+
+            return _ProductService.GetProducts();
+        }
+
+        [HttpGet(Name = "GetProductById")]
+        public ProductItem GetById(int id)
+        {
+
+            return _ProductService.GetProductById(id);
+        }
+
+        [HttpDelete(Name = "DeactivateProduct")]
+        public void Deactivate(int id)
+        {
+
+            _ProductService.DeactivateProduct(id);
+        }
     }
 }
