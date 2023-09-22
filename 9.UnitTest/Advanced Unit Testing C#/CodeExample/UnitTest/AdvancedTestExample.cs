@@ -14,12 +14,14 @@ namespace UnitTest
     public class AdvancedTestExample
     {
         private readonly OrderService _orderService;
+
         private List<OrderItem> AddedOrdersList = new List<OrderItem>();
         private int IdCounter = 0;
+
         public AdvancedTestExample()
         {
-            var mockContextOptions = new DbContextOptions<ServiceContext>();
-            var mockServiceContext = new Mock<ServiceContext>(mockContextOptions);
+            var contextOptions = new DbContextOptions<ServiceContext>();
+            var mockServiceContext = new Mock<ServiceContext>(contextOptions);
             var mockOrdersSet = new Mock<DbSet<OrderItem>>();
             var mockEmail = new Mock<IEmailService>();
 

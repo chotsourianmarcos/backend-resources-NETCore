@@ -9,6 +9,14 @@ namespace UnitTest.SampleData
 {
     public class OrderSampleData
     {
+        //public static IEnumerable<int> EnumerableInt 
+        //{ get 
+        //    {
+        //        return new int[] {
+        //        1, 2, 3, 4
+        //        };
+        //    } 
+        //}
         public static IEnumerable<ValidatedOrderItem> ValidOrdersData {
             get
             {
@@ -63,15 +71,15 @@ namespace UnitTest.SampleData
                 return new ValidatedOrderItem[]
                 {
                     new ValidatedOrderItem {
-                        Id = 1,
+                        Id = 2,
                         IdBuyer = 3,
-                        IdProduct = 6,
-                        ProductAmount = 34,
-                        TotalPrice = -500,
-                        IsPayed = false,
+                        IdProduct = 8,
+                        ProductAmount = 324,
+                        TotalPrice = 1300,
+                        IsPayed = true,
                         IsDelivered = false,
                         IsActive = true,
-                        InsertDate = DateTime.Now.AddDays(-1),
+                        InsertDate = DateTime.Now.AddDays(+3),
                         UpdateDate = null,
                         IsValid = false
                     },
@@ -107,6 +115,26 @@ namespace UnitTest.SampleData
     }
     public class ValidatedOrderItem : OrderItem
     {
+        //TODO ESTO VIENE YA EN LA CLASE HEREDADA
+        //public int Id { get; set; }
+        //public int IdBuyer { get; set; }
+        //public int IdProduct { get; set; }
+        //public decimal ProductAmount { get; set; }
+        //public decimal TotalPrice { get; set; }
+        //public bool IsPayed { get; set; }
+        //public bool IsDelivered { get; set; }
+        //public bool IsActive { get; set; }
+        //public DateTime InsertDate { get; set; }
+        //public DateTime? UpdateDate { get; set; }
         public bool IsValid { get; set; }
     }
+    //public class ValidatedOrderItem
+    //{
+    //    ValidatedOrderItem()
+    //    {
+    //        OrderItemContained = new OrderItem();
+    //    }
+    //    public OrderItem OrderItemContained { get; set; }
+    //    public bool IsValid { get; set; }
+    //}
 }

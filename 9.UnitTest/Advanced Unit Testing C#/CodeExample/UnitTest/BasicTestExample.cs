@@ -60,9 +60,9 @@ namespace UnitTest
             var isValidC = OrderService.ValidateOrderA(orderC);
 
             //Assert
-            Assert.AreEqual(true, isValidA, "Custom error message");
-            Assert.AreEqual(false, isValidB, "Custom error message");
-            Assert.AreEqual(false, isValidC, "Custom error message");
+            Assert.AreEqual(true, isValidA, "Testeo de validación de modelo de orden 1");
+            Assert.AreEqual(false, isValidB, "Testeo de validación de modelo de orden 2");
+            Assert.AreEqual(false, isValidC, "Testeo de validación de modelo de orden 3");
         }
     }
 }
