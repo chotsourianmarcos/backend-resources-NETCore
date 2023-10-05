@@ -1,8 +1,12 @@
-<p><b>Recursos de Back End</b></p>
+<p><b>Recursos de Back End para Bootcamp FullStack</b></p>
+</br>
+<p><b>Stacks</b></p>
 <p>*C#</p>
 <p>*NET Core 6 - EF 7</p>
-<p>*FemCoders Sevilla</p>
-<p>*Fundación Don Bosco y Factoría F5</p>
+<p>*SQL Server</p>
+<p><b>IDEs</b></p>
+<p>*Visual Studio Community 2022</p>
+<p>*SQL Server Management Studio</p>
 
 </br>
 <p>A continuación un índice de los recursos ofrecidos. ¡Cada tema es completado y extendido con las píldoras y superpíldoras que han trabajado a lo largo del bootcamp y con sus propias investigaciones y experimentos de laboratorio! A fines pedagógicos, los ejemplos son solamente ejemplo del tema en cuestión, no necesariamente de otros temas ni de buenas prácticas. Como siempre, prioricen resolver las cosas a su manera y con comprensión. Difícilmente los recursos ofrecidos sean aplicables simplemente copiándolos a sus proyectos, elijan qué tomar y cómo.</p>
