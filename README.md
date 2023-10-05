@@ -1,5 +1,5 @@
-<p><b>*Recursos de Back End</b></p>
-<p>C#</p>
+<p><b>Recursos de Back End</b></p>
+<p>*C#</p>
 <p>*NET Core 6 - EF 7</p>
 <p>*FemCoders Sevilla</p>
 <p>*Fundación Don Bosco y Factoría F5</p>
